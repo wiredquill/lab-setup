@@ -1,0 +1,17 @@
+defaultNamespace: longhorn-system
+helm:
+  chart: longhorn/longhorn
+  repo: https://charts.longhorn.io
+  releaseName: longhorn
+  values:
+    ingress:
+      enabled: true
+      host: longhorn.${ .ClusterName }.lab.geeko.me
+    persistence:
+      migratable: true
+    longhornUI:
+      replicas: 1
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        needs-storage: "true"
