@@ -1,0 +1,14 @@
+helm:
+  chart: ""
+  releaseName: application-collection
+  values:
+    registry: dp.apps.rancher.io
+    ociRegistry: oci://dp.apps.rancher.io/charts
+  valuesFrom:
+    - secretKeyRef:
+        key: username
+        name: registry-creds
+    - secretKeyRef:
+        name: fleet-secrets
+        namespace: fleet-default
+        key: appco-values.yaml

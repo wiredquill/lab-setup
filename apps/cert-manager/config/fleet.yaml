@@ -1,0 +1,8 @@
+helm:
+  chart: ""
+  releaseName: cert-manager-config
+  valuesFrom:
+    - secretKeyRef:
+        name: fleet-secrets
+        namespace: fleet-default
+        key: cert-manager-values.yaml

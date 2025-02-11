@@ -1,0 +1,10 @@
+defaultNamespace: cert-manager
+helm:
+  chart: cert-manager
+  repo: https://charts.jetstack.io
+  releaseName: cert-manager
+  values:
+    crds:
+      enabled: true
+    dns01RecursiveNameserversOnly: true
+    dns01RecursiveNameservers: "8.8.8.8:53,1.1.1.1:53"
