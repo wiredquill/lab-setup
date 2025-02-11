@@ -1,0 +1,11 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: lab-setup
+  namespace: fleet-default
+spec:
+  branch: main
+  correctDrift: {}
+  paths:
+    - /apps
+  repo: https://github.com/hierynomus/lab-setup.git
