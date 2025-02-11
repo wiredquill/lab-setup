@@ -1,6 +1,6 @@
 defaultNamespace: longhorn-system
 helm:
-  chart: longhorn/longhorn
+  chart: longhorn
   repo: https://charts.longhorn.io
   releaseName: longhorn
   values:
