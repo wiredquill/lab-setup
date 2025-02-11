@@ -6,9 +6,6 @@ helm:
     ociRegistry: oci://dp.apps.rancher.io/charts
   valuesFrom:
     - secretKeyRef:
-        key: username
-        name: registry-creds
-    - secretKeyRef:
         name: fleet-secrets
-        namespace: fleet-default
+        namespace: kube-system
         key: appco-values.yaml

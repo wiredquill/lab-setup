@@ -4,5 +4,5 @@ helm:
   valuesFrom:
     - secretKeyRef:
         name: fleet-secrets
-        namespace: fleet-default
+        namespace: kube-system
         key: cert-manager-values.yaml
