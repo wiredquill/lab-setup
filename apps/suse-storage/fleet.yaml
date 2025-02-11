@@ -11,7 +11,3 @@ helm:
       migratable: true
     longhornUI:
       replicas: 1
-overrideTargets:
-  - clusterSelector:
-      matchLabels:
-        needs-storage: "true"
