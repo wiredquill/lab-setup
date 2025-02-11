@@ -5,3 +5,7 @@ helm:
   version: "104.0.4+up2.8.4"
   valuesFiles:
     - values.yaml
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        needs-security: "true"
