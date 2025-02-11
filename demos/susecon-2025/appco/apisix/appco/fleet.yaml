@@ -4,6 +4,8 @@ helm:
   repo: oci://dp.apps.rancher.io/charts
   releaseName: apisix-appco
   values:
+    global:
+      imagePullSecrets: ["application-collection"]
     dashboard:
       enabled: true
     ingress-controller:
