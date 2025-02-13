@@ -1,3 +1,4 @@
+defaultNamespace: harbor
 helm:
   chart: ""
   releaseName: harbor-proxy-cache
@@ -8,7 +9,7 @@ helm:
         key: harbor-values.yaml
   values:
     harbor:
-      url: harbor.${ .ClusterName }.lab.geeko.me
+      url: harbor.harbor.svc.cluster.local
       username: admin
       password: admin
 labels:
