@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: harbor-setup-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: harbor-setup
+        image: curlimages/curl:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            curl -X POST -u {{ .Values.harbor.adminUsername }}:{{ .Values.harbor.adminPassword }} \
+              -H "Content-Type: application/json" \
+              -d '{"credential": {"access_key": {{ .Values.registry.credential.username | quote }}, "access_secret": {{ .Values.registry.credential.password | quote }}, "type": {{ .Values.registry.credential.type | quote }}}, "insecure": {{ .Values.registry.insecure }}, "name": {{ .Values.registry.name | quote }}, "type": {{ .Values.registry.type | quote }}, "url": {{ .Values.registry.url | quote }}}' \
+              http://{{ .Values.harbor.url }}/api/v2.0/registries
+      restartPolicy: OnFailure
