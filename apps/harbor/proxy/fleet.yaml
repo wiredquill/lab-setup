@@ -17,3 +17,7 @@ dependsOn:
   - selector:
       matchLabels:
         provides: harbor
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        needs-harbor: "true"
