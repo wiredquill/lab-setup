@@ -14,5 +14,5 @@ spec:
             curl -X POST -u {{ .Values.harbor.username }}:{{ .Values.harbor.password }} \
               -H "Content-Type: application/json" \
               -d '{"credential": {"access_key": {{ .Values.registry.credential.access_key | quote }}, "access_secret": {{ .Values.registry.credential.access_secret | quote }}, "type": {{ .Values.registry.credential.type | quote }}}, "insecure": {{ .Values.registry.insecure }}, "name": {{ .Values.registry.name | quote }}, "type": {{ .Values.registry.type | quote }}, "url": {{ .Values.registry.url | quote }}}' \
-              http://{{ .Values.harbor.url }}/api/v2.0/registries
+              https://{{ .Values.harbor.url }}/api/v2.0/registries
       restartPolicy: OnFailure
