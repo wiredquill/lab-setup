@@ -1,6 +1,6 @@
 defaultNamespace: apisix-appco
 helm:
-  chart: oci://dp.apps.rancher.io/charts/apisix
+  chart: oci://dp.apps.rancher.io/charts/apache-apisix
   releaseName: apisix-appco
   values:
     global:
