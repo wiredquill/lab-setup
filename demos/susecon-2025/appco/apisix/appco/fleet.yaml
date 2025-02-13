@@ -11,6 +11,9 @@ helm:
         conf:
           etcd:
             endpoints: ["apisix-appco-etcd:2379"]
+    etcd:
+      image:
+        tag: 3.5.18 # Force tag to 3.5.18 for vulns
     ingress-controller:
       enabled: true
       config:
