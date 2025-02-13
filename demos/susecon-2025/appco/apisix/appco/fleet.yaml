@@ -13,6 +13,7 @@ helm:
         kubernetes:
           ingressClass: "apisix-appco"
         apisix:
+          serviceName: apisix-appco-admin
           serviceNamespace: apisix-appco
 overrideTargets:
   - clusterSelector:

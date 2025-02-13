@@ -9,8 +9,12 @@ helm:
     ingress-controller:
       enabled: true
       config:
+        kubernetes:
+          ingressClass: "apisix-upstream"
         apisix:
+          serviceName: apisix-upstream-admin
           serviceNamespace: apisix-upstream
+
 overrideTargets:
   - clusterSelector:
       matchLabels:
