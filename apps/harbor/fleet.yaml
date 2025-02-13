@@ -1,0 +1,14 @@
+defaultNamespace: harbor
+helm:
+  chart: oci://dp.apps.rancher.io/charts/harbor
+  releaseName: harbor
+  valuesFiles:
+    - values.yaml
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        needs-harbor: "true"
+dependsOn:
+  - selector:
+      matchLabels:
+        provides: application-collection
