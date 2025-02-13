@@ -6,6 +6,7 @@ expose:
     hosts:
       core: harbor.${ .ClusterName }.lab.geeko.me
   tls:
+    certSource: secret
     secret:
       secretName: harbor-tls
 externalURL: https://harbor.${ .ClusterName }.lab.geeko.me
