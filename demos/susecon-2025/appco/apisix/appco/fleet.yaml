@@ -10,6 +10,8 @@ helm:
     ingress-controller:
       enabled: true
       config:
+        kubernetes:
+          ingressClass: "apisix-appco"
         apisix:
           serviceNamespace: apisix-appco
 overrideTargets:

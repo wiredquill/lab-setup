@@ -6,6 +6,7 @@ metadata:
 spec:
   branch: main
   correctDrift: {}
+  helmSecretName: application-collection-basicauth
   paths:
     - /apps
   repo: https://github.com/hierynomus/lab-setup.git
