@@ -6,6 +6,10 @@ helm:
   values:
     dashboard:
       enabled: true
+      config:
+        conf:
+          etcd:
+            endpoints: "apisix-upstream-etcd: 2379"
     ingress-controller:
       enabled: true
       config:
