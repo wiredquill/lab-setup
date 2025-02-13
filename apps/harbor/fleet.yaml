@@ -12,3 +12,6 @@ dependsOn:
   - selector:
       matchLabels:
         provides: application-collection
+  - selector:
+      matchLabels:
+        provides: cert-manager
