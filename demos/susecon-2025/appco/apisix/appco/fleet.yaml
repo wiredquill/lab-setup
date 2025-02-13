@@ -10,7 +10,7 @@ helm:
       config:
         conf:
           etcd:
-            endpoints: ["apisix-upstream-etcd:2379"]
+            endpoints: ["apisix-appco-etcd:2379"]
     ingress-controller:
       enabled: true
       config:
