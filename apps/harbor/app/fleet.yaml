@@ -15,3 +15,5 @@ dependsOn:
   - selector:
       matchLabels:
         provides: cert-manager
+labels:
+  provides: harbor
