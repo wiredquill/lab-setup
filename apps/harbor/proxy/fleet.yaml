@@ -9,7 +9,7 @@ helm:
         key: harbor-values.yaml
   values:
     harbor:
-      url: harbor.harbor.svc.cluster.local
+      url: harbor-core.harbor.svc.cluster.local
       username: admin
       password: admin
 labels:
