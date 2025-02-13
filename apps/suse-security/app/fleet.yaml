@@ -9,3 +9,12 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         needs-security: "true"
+dependsOn:
+  - selector:
+      matchLabels:
+        provides: neuvector-crd
+  - selector:
+      matchLabels:
+        provides: longhorn
+labels:
+  provides: neuvector

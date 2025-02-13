@@ -15,3 +15,5 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         needs-storage: "true"
+labels:
+  provides: longhorn

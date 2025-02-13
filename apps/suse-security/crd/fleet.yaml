@@ -8,3 +8,5 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         needs-security: "true"
+labels:
+  provides: neuvector-crd

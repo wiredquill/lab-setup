@@ -23,3 +23,7 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "susecon-appco"
+dependsOn:
+  - selector:
+      matchLabels:
+        provides: application-collection

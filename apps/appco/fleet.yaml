@@ -9,3 +9,5 @@ helm:
         name: fleet-secrets
         namespace: kube-system
         key: appco-values.yaml
+labels:
+  provides: application-collection

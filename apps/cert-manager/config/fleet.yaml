@@ -6,3 +6,7 @@ helm:
         name: fleet-secrets
         namespace: kube-system
         key: cert-manager-values.yaml
+dependsOn:
+  - selector:
+      matchLabels:
+        provides: cert-manager
