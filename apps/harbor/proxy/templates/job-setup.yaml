@@ -34,7 +34,7 @@ spec:
               --url https://{{ .Values.harbor.url }}/api/v2.0/projects \
               -d @- <<EOF
               {
-                "project_name": {{ .Values.registry.name | quote }}s,
+                "project_name": {{ .Values.registry.name | quote }},
                 "registry_id": "$REG_ID",
                 "public": true
               }
