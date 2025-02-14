@@ -9,7 +9,7 @@ helm:
         key: harbor-values.yaml
   values:
     harbor:
-      url: harbor-core.harbor.svc.cluster.local
+      url: harbor.${ .ClusterName }.lab.geeko.me
       username: admin
       password: admin
 labels:
