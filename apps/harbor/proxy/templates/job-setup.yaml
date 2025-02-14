@@ -20,12 +20,12 @@ spec:
                 "credential": {
                   "access_key": "$ACCESS_KEY",
                   "access_secret": "$ACCESS_SECRET",
-                  "type": "{{ .Values.registry.credential.type | quote }}"
+                  "type": {{ .Values.registry.credential.type | quote }}
                 },
                 "insecure": {{ .Values.registry.insecure }},
-                "name": "{{ .Values.registry.name | quote }}",
-                "type": "{{ .Values.registry.type | quote }}",
-                "url": "{{ .Values.registry.url | quote }}"
+                "name": {{ .Values.registry.name | quote }},
+                "type": {{ .Values.registry.type | quote }},
+                "url": {{ .Values.registry.url | quote }}
               }
             EOF
             REG_ID=$(curl -X GET -u $HARBOR_USERNAME:$HARBOR_PASSWORD https://{{ .Values.harbor.url }}/api/v2.0/registries | jq -r '.[] | select(.name == "{{ .Values.registry.name }}") | .id')
@@ -34,7 +34,7 @@ spec:
               --url https://{{ .Values.harbor.url }}/api/v2.0/projects \
               -d @- <<EOF
               {
-                "project_name": "{{ .Values.registry.name | quote }}",
+                "project_name": {{ .Values.registry.name | quote }}s,
                 "registry_id": "$REG_ID",
                 "public": true
               }
