@@ -35,7 +35,7 @@ spec:
               -d @- <<EOF
               {
                 "project_name": {{ .Values.registry.name | quote }},
-                "registry_id": "$REG_ID",
+                "registry_id": $REG_ID,
                 "public": true
               }
             EOF
