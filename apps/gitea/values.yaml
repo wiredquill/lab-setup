@@ -1,0 +1,51 @@
+deployment:
+  env:
+  # Will be automatically defined!
+  - name: GOMAXPROCS
+    valueFrom:
+      resourceFieldRef:
+        divisor: "1" # Is required for GitDevOps systems like ArgoCD/Flux. Otherwise throw the system a diff error. (k8s-default=1)
+        resource: limits.cpu
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 512Mi
+
+redis-cluster:
+  enabled: false
+redis:
+  enabled: true
+postgresql:
+  enabled: true
+postgresql-ha:
+  enabled: false
+
+persistence:
+  enabled: true
+
+gitea:
+  config:
+    database:
+      DB_TYPE: postgres
+    indexer:
+      ISSUE_INDEXER_TYPE: bleve
+      REPO_INDEXER_ENABLED: true
+  admin:
+    username: "susecon"
+    password: "susecon2025"
+    email: "jeroen@geeko.me"
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: gitea.${ .ClusterName }.lab.geeko.me
+  tls:
+    - secretName: gitea-tls
+      hosts:
+        - gitea.${ .ClusterName }.lab.geeko.me

@@ -1,0 +1,15 @@
+expose:
+  ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    className: nginx
+    hosts:
+      core: registry.${ .ClusterName }.lab.geeko.me
+  tls:
+    certSource: secret
+    secret:
+      secretName: harbor-tls
+externalURL: https://registry.${ .ClusterName }.lab.geeko.me
+global:
+  imagePullSecrets: ["suse-registry"]
+harborAdminPassword: admin

@@ -1,0 +1,12 @@
+defaultNamespace: gitea
+helm:
+  chart: gitea
+  repo: https://dl.gitea.com/charts/
+  releaseName: gitea
+labels:
+  provides: gitea
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        demo: "susecon-devex"
+
