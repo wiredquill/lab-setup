@@ -1,0 +1,24 @@
+defaultNamespace: harbor
+helm:
+  chart: ""
+  releaseName: private-registry-proxy-cache
+  valuesFrom:
+    - secretKeyRef:
+        name: fleet-secrets
+        namespace: kube-system
+        key: harbor-values.yaml
+  values:
+    harbor:
+      url: registry.${ .ClusterName }.lab.geeko.me
+      username: admin
+      password: admin
+labels:
+  provides: private-registry-proxy-cache
+dependsOn:
+  - selector:
+      matchLabels:
+        provides: harbor
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        needs-private-registry: "true"
