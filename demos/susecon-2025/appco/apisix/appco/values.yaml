@@ -1,0 +1,20 @@
+global:
+  imagePullSecrets: ["application-collection"]
+dashboard:
+  enabled: false
+  config:
+    conf:
+      etcd:
+        endpoints: ["apisix-appco-etcd:2379"]
+etcd:
+  images:
+    etcd:
+      tag: 3.5.18 # Force tag to 3.5.18 for vulns
+ingress-controller:
+  enabled: true
+  config:
+    kubernetes:
+      ingressClass: "apisix-appco"
+    apisix:
+      serviceName: apisix-appco-admin
+      serviceNamespace: apisix-appco

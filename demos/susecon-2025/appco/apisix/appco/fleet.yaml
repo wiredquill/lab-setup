@@ -2,26 +2,8 @@ defaultNamespace: apisix-appco
 helm:
   chart: oci://dp.apps.rancher.io/charts/apache-apisix
   releaseName: apisix-appco
-  values:
-    global:
-      imagePullSecrets: ["application-collection"]
-    dashboard:
-      enabled: true
-      config:
-        conf:
-          etcd:
-            endpoints: ["apisix-appco-etcd:2379"]
-    etcd:
-      image:
-        tag: 3.5.18 # Force tag to 3.5.18 for vulns
-    ingress-controller:
-      enabled: true
-      config:
-        kubernetes:
-          ingressClass: "apisix-appco"
-        apisix:
-          serviceName: apisix-appco-admin
-          serviceNamespace: apisix-appco
+  valuesFiles:
+    - values.yaml
 overrideTargets:
   - clusterSelector:
       matchLabels:
