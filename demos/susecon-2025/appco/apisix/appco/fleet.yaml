@@ -1,12 +1,10 @@
 defaultNamespace: apisix-appco
 helm:
-  chart: oci://registry.mars.lab.geeko.me/application-collection/charts/apache-apisix
+  chart: oci://dp.apps.rancher.io/charts/apache-apisix
   releaseName: apisix-appco
   values:
-    # global:
-    #   imagePullSecrets: ["application-collection"]
-    image:
-      repository: registry.${ .ClusterName }.lab.geeko.me/application-collection/apisix
+    global:
+      imagePullSecrets: ["application-collection"]
     dashboard:
       enabled: true
       config:
