@@ -1,12 +1,65 @@
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
 metadata:
-  name: lab-setup
+  name: lab-setup-base
+  namespace: fleet-default
+spec:
+  branch: main
+  correctDrift: {}
+  paths:
+    - /apps/base
+  repo: https://github.com/hierynomus/lab-setup.git
+  targets:
+    - clusterSelector: {} # all clusters
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: lab-setup-appco
   namespace: fleet-default
 spec:
   branch: main
   correctDrift: {}
   helmSecretName: application-collection-basicauth
   paths:
-    - /apps
+    - /apps/appco
+  repo: https://github.com/hierynomus/lab-setup.git
+  targets:
+    - clusterSelector: null # no clusters
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: lab-setup-suse
+  namespace: fleet-default
+spec:
+  branch: main
+  correctDrift: {}
+  helmSecretName: scc-suse-basicauth
+  paths:
+    - /apps/suse
+  repo: https://github.com/hierynomus/lab-setup.git
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: lab-setup-platform
+  namespace: fleet-default
+spec:
+  branch: main
+  correctDrift: {}
+  paths:
+    - /apps/platform
+  repo: https://github.com/hierynomus/lab-setup.git
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: lab-setup-demos
+  namespace: fleet-default
+spec:
+  branch: main
+  correctDrift: {}
+  paths:
+    - /demos
   repo: https://github.com/hierynomus/lab-setup.git
