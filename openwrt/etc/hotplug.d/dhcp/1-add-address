@@ -1,0 +1,78 @@
+#!/bin/sh
+
+action="$ACTION"
+mac="$MACADDR"
+ip="$IPADDR"
+hostname="$HOSTNAME"
+
+file="/tmp/dnsmasq.d/dynamic.conf"
+domain="lab.geeko.me"
+
+if [ ! -d $(dirname $file) ]; then
+    mkdir -p $(dirname $file)
+    echo "Directory $(dirname $file) created"
+fi
+
+if [ ! -f $file ]; then
+    touch $file
+    echo "$file created"
+fi
+
+logger "Action $action for $ip with hostname $hostname"
+
+if [ -z "$hostname" ]; then
+    sed -i "/${ip}/d" $file
+    sed -i "/${ip}/d" /tmp/dhcp.leases
+    logger "Removed $ip from $file"
+    service dnsmasq restart
+    exit 0
+fi
+
+if [ "$hostname" == "OpenWrt" ]; then
+    sed -i "/${ip}/d" $file
+    sed -i "/${ip}/d" /tmp/dhcp.leases
+    logger "Removed $ip from $file"
+    service dnsmasq restart
+    exit 0
+fi
+
+case "$action" in
+    add)
+        echo "address=/${hostname}.${domain}/${ip}" >> $file
+        logger "Added $hostname.${domain} with IP $ip to $file"
+        if [[ "${hostname}" =~ .*"-pool[0-9]+-".* ]]; then
+            simple_hostname=$(echo "${hostname}" | sed -E 's/-pool[0-9]+-.*//')
+            sed -i "/${simple_hostname}.${domain}/d" $file
+            echo "address=/${simple_hostname}.${domain}/${ip}" >> $file
+            logger "Added ${simple_hostname}.${domain} with IP $ip in $file"
+        fi
+        service dnsmasq restart
+        ;;
+    del)
+        sed -i "/${hostname}.${domain}/d" $file
+        if [[ "${hostname}" =~ .*"-pool[0-9]+-".* ]]; then
+            simple_hostname=$(echo "${hostname}" | sed -E 's/-pool[0-9]+-.*//')
+            sed -i "/${simple_hostname}.${domain}/d" $file
+            logger "Deleted ${simple_hostname}.${domain} with IP $ip from $file"
+        fi
+        logger "Removed $ip from $file"
+        service dnsmasq restart
+        ;;
+    update)
+        if grep -Fq "${hostname}.${domain}/${ip}" $file; then
+            logger "No update needed for $hostname.${domain} with IP $ip in $file"
+        else
+            sed -i "/${hostname}.${domain}/d" $file
+            echo "address=/${hostname}.${domain}/${ip}" >> $file
+            logger "Updated $hostname.${domain} with IP $ip in $file"
+            if [[ "${hostname}" =~ .*"-pool[0-9]+-".* ]]; then
+                simple_hostname=$(echo "${hostname}" | sed -E 's/-pool[0-9]+-.*//')
+                sed -i "/${simple_hostname}.${domain}/d" $file
+                echo "address=/${simple_hostname}.${domain}/${ip}" >> $file
+                logger "Updated ${simple_hostname}.${domain} with IP $ip in $file"
+            fi
+            service dnsmasq restart
+        fi
+        ;;
+esac
+
