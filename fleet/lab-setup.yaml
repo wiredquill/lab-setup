@@ -1,4 +1,17 @@
 apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: all-downstream-clusters
+  namespace: fleet-default
+spec:
+  selector:
+    matchExpressions:
+      - key: provider.cattle.io
+        operator: NotIn
+        values:
+          - harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
 metadata:
   name: lab-setup-base
@@ -10,7 +23,7 @@ spec:
     - /apps/base
   repo: https://github.com/hierynomus/lab-setup.git
   targets:
-    - clusterSelector: {} # all clusters
+    - clusterGroup: all-downstream-clusters
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -25,7 +38,7 @@ spec:
     - /apps/appco
   repo: https://github.com/hierynomus/lab-setup.git
   targets:
-    - clusterSelector: null # no clusters
+    - clusterGroup: all-downstream-clusters
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -39,6 +52,8 @@ spec:
   paths:
     - /apps/suse
   repo: https://github.com/hierynomus/lab-setup.git
+  targets:
+    - clusterSelector: null # no clusters
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -51,6 +66,8 @@ spec:
   paths:
     - /apps/platform
   repo: https://github.com/hierynomus/lab-setup.git
+  targets:
+    - clusterSelector: null # no clusters
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -63,3 +80,5 @@ spec:
   paths:
     - /demos
   repo: https://github.com/hierynomus/lab-setup.git
+  targets:
+    - clusterSelector: null # no clusters
