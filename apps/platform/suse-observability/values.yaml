@@ -1,0 +1,54 @@
+global:
+  imageRegistry: "registry.rancher.com"
+
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+  tls:
+    secretName: tls-secret
+opentelemetry-collector:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+      nginx.ingress.kubernetes.io/backend-protocol: GRPC
+    tls:
+        secretName: otel-ecc-tls
+opentelemetry:
+  enabled: true
+stackstate:
+  authentication:
+    adminPassword: "$2a$10$1XyTg9cAAeRlMaCnNmeQ4OSikJhRj6oW1BOSc/A44HGrubQcreS.e" # !nfiniteP0wer
+  apiKey:
+    key: "beTRIDqKh6xvXpCw6wkxIt9bvoyLwJGU"
+
+  experimental:
+    traces: true
+  deployment:
+    mode: SelfHosted
+    edition: "Prime"
+  components:
+    all:
+      extraEnv:
+        open:
+          CONFIG_FORCE_stackgraph_retentionWindowMs: 86400000
+          CONFIG_FORCE_stackstate_traces_retentionDays: "1"
+  e2es:
+    retention: 1
+  receiver:
+    retention: 1
+  state:
+    config: |
+      stackstate.stateService.defaultPropagation = Transparent
+victoria-metrics-0:
+  backup:
+    enabled: false
+clickhouse:
+  enabled: true
+  backup:
+    enabled: false
+backup:
+  enabled: false
