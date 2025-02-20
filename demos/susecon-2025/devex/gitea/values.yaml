@@ -47,6 +47,7 @@ ingress:
     - host: gitea.${ .ClusterName }.lab.geeko.me
       paths:
         - path: /
+          pathType: Prefix
   tls:
     - secretName: gitea-tls
       hosts:
