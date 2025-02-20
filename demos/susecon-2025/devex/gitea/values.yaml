@@ -45,6 +45,8 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
     - host: gitea.${ .ClusterName }.lab.geeko.me
+      paths:
+        - path: /
   tls:
     - secretName: gitea-tls
       hosts:
