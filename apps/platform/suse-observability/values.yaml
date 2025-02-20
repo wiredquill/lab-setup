@@ -30,7 +30,7 @@ stackstate:
     all:
       extraEnv:
         open:
-          CONFIG_FORCE_stackgraph_retentionWindowMs: 86400000
+          CONFIG_FORCE_stackgraph_retentionWindowMs: "86400000"
           CONFIG_FORCE_stackstate_traces_retentionDays: "1"
   e2es:
     retention: 1
