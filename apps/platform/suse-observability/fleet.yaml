@@ -18,7 +18,8 @@ helm:
                 pathType: Prefix
                 port: 4317
         tls:
-          hosts: ["otlp-observability.${ .ClusterName }.lab.geeko.me"]
+          - hosts: ["otlp-observability.${ .ClusterName }.lab.geeko.me"]
+            secretName: otel-ecc-tls
         additionalIngresses:
           - name: otlp-http
             annotations:
