@@ -8,7 +8,8 @@ helm:
       hosts:
         - host: observability.${ .ClusterName }.lab.geeko.me
       tls:
-        hosts: ["observability.${ .ClusterName }.lab.geeko.me"]
+        - hosts: ["observability.${ .ClusterName }.lab.geeko.me"]
+          secretName: tls-secret
     opentelemetry-collector:
       ingress:
         hosts:

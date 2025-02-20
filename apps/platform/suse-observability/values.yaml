@@ -6,8 +6,6 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-  tls:
-    secretName: tls-secret
 opentelemetry-collector:
   ingress:
     enabled: true
