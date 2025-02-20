@@ -38,7 +38,7 @@ helm:
               - hosts: ["otlp-http-observability.${ .ClusterName }.lab.geeko.me"]
                 secretName: otel-http-ecc-tls
   valuesFiles:
-    - sizing_values.yaml
+    - trial_sizing.yaml
     - values.yaml
   valuesFrom:
     - secretKeyRef:
