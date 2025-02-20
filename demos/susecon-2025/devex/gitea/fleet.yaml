@@ -3,6 +3,8 @@ helm:
   chart: gitea
   repo: https://dl.gitea.com/charts/
   releaseName: gitea
+  valuesFiles:
+    - values.yaml
 labels:
   provides: gitea
 overrideTargets:
