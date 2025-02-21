@@ -1,0 +1,19 @@
+defaultNamespace: coder
+helm:
+  chart: coder
+  repo: https://helm.coder.com/v2
+  releaseName: coder
+  values:
+    coder:
+      env:
+        - name: CODER_PG_CONNECTION_URL
+          value: "postgres://coder:coder@postgresql.postgresql.svc.cluster.local:5432/coder?sslmode=disable"
+        - name: CODER_ACCESS_URL
+          value: "https://coder.${ .ClusterName }.lab.geeko.me"
+labels:
+  provides: coder
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        demo: "susecon-devex"
+
