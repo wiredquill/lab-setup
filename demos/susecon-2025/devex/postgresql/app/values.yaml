@@ -1,5 +1,9 @@
 global:
   imagePullSecrets: ["application-collection"]
+podTemplates:
+  initContainers:
+    volume-permissions:
+      enabled: true
 # podTemplates:
 #   containers:
 #     postgresql:
