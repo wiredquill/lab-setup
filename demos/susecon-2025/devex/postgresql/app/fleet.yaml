@@ -1,0 +1,18 @@
+defaultNamespace: postgresql
+helm:
+  chart: postgresql
+  repo: oci://dp.apps.rancher.io/charts/postgresql
+  releaseName: postgresql
+  valuesFiles:
+    - values.yaml
+labels:
+  provides: postgresql
+dependsOn:
+  selector:
+    matchLabels:
+      provides: postgresql-init
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        demo: "susecon-devex"
+
