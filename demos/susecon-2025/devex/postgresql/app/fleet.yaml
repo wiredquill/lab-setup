@@ -8,9 +8,9 @@ helm:
 labels:
   provides: postgresql
 dependsOn:
-  selector:
-    matchLabels:
-      provides: postgresql-init
+  - selector:
+      matchLabels:
+        provides: postgresql-init
 overrideTargets:
   - clusterSelector:
       matchLabels:
