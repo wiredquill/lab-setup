@@ -1,7 +1,6 @@
 defaultNamespace: postgresql
 helm:
-  chart: postgresql
-  repo: oci://dp.apps.rancher.io/charts/postgresql
+  chart: oci://dp.apps.rancher.io/charts/postgresql
   releaseName: postgresql
   valuesFiles:
     - values.yaml
