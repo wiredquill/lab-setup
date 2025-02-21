@@ -5,4 +5,7 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "susecon-devex"
+  - clusterSelector:
+      matchLabels:
+        demo: "postgres"
 
