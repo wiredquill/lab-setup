@@ -10,6 +10,15 @@ helm:
           value: "postgres://coder:coder@postgresql.postgresql.svc.cluster.local:5432/coder?sslmode=disable"
         - name: CODER_ACCESS_URL
           value: "https://coder.${ .ClusterName }.lab.geeko.me"
+      ingress:
+        enable: true
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        host: coder.${ .ClusterName }.lab.geeko.me
+        tls:
+          enable: true
+          host: coder.${ .ClusterName }.lab.geeko.me
+          secretName: coder-tls
 labels:
   provides: coder
 overrideTargets:
