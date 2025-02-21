@@ -4,17 +4,16 @@ podTemplates:
   initContainers:
     volume-permissions:
       enabled: true
-# podTemplates:
-#   containers:
-#     postgresql:
-#       volumeMounts:
-#         initdb:
-#           enabled: true
-#           mountPath: /docker-entrypoint-initdb.d
-#           readOnly: true
-#   volumes:
-#     initdb:
-#       enabled: true
-#       configMap:
-#         name: postgresql-initdb
-#         defaultMode: 0o440
+  containers:
+    postgresql:
+      volumeMounts:
+        initdb:
+          enabled: true
+          mountPath: /docker-entrypoint-initdb.d
+          readOnly: true
+  volumes:
+    initdb:
+      enabled: true
+      configMap:
+        name: postgresql-initdb
+        defaultMode: 0o440
