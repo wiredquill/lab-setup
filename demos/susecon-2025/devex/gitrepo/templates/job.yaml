@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
       - name: clone-push-demoapp
-        image: registry.suse.com/bci/base
+        image: registry.suse.com/bci/bci-base
         command: ["bash", "-c"]
         args:
           - |
