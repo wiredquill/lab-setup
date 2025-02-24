@@ -26,6 +26,9 @@ internal:
   autoGenerateCert: false
 controller:
   replicas: 1
+  internal:
+    certificate:
+      secret: neuvector-tls
   prime:
     enabled: true
   federation:
@@ -83,4 +86,11 @@ cve:
   scanner:
     enabled: true
     replicas: 1
+    internal:
+      certificate:
+        secret: neuvector-tls
+enforcer:
+  internal:
+    certificate:
+      secret: neuvector-tls
 rbac: true
