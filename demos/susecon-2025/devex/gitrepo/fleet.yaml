@@ -4,7 +4,7 @@ helm:
   releaseName: git-demoapp
   values:
     gitea:
-      url: https://gitea.${ .ClusterName }.lab.geeko.me
+      url: gitea.${ .ClusterName }.lab.geeko.me
       username: "susecon"
       password: "!nfiniteP0wer"
 dependsOn:
