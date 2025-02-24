@@ -3,6 +3,6 @@ overrideTargets:
       matchLabels:
         demo: "susecon-appco"
 dependsOn:
-  selectors:
-    - matchLabels:
+  - selectors:
+      matchLabels:
         provides: "kubewarden-controller"
