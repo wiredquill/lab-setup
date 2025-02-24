@@ -83,4 +83,4 @@ spec:
   targets:
     - clusterSelector: null # no clusters
   helmSecretName: application-collection-basicauth
-  helmRepoRegex: (oci|https)://dp.apps.rancher.io/*
+  helmRepoURLRegex: (oci|https)://dp.apps.rancher.io/*
