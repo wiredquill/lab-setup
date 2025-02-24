@@ -19,16 +19,11 @@ manager:
 k3s:
   enabled: true
   runtimePath: /run/k3s/containerd/containerd.sock
-autoGenerateCert: false
 internal:
   certmanager:
-    secretName: neuvector-tls
-  autoGenerateCert: false
+    enabled: true
 controller:
   replicas: 1
-  internal:
-    certificate:
-      secret: neuvector-tls
   prime:
     enabled: true
   federation:
@@ -86,11 +81,4 @@ cve:
   scanner:
     enabled: true
     replicas: 1
-    internal:
-      certificate:
-        secret: neuvector-tls
-enforcer:
-  internal:
-    certificate:
-      secret: neuvector-tls
 rbac: true
