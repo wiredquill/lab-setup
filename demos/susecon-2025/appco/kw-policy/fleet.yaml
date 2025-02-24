@@ -1,0 +1,8 @@
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        demo: "susecon-appco"
+dependsOn:
+  selectors:
+    - matchLabels:
+        provides: "kubewarden-controller"

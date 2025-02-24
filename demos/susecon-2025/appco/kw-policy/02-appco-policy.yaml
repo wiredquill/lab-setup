@@ -1,0 +1,56 @@
+---
+# check-appco-signatures.yml
+---
+apiVersion: policies.kubewarden.io/v1
+kind: ClusterAdmissionPolicy
+metadata:
+  annotations:
+    io.kubewarden.policy.category: Secure supply chain
+    io.kubewarden.policy.severity: medium
+  name: check-appco-signatures
+spec:
+  backgroundAudit: true
+  mode: protect
+  module: ghcr.io/kubewarden/policies/verify-image-signatures:v0.2.9
+  mutating: true
+  policyServer: default # our desired PolicyServer name to run the policy in
+  timeoutSeconds: 30 # default 10 seconds. Increase if needed.
+  rules:
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["pods"]
+      operations: ["CREATE", "UPDATE"]
+    - apiGroups: [""]
+      apiVersions: ["v1"]
+      resources: ["replicationcontrollers"]
+      operations: ["CREATE", "UPDATE"]
+    - apiGroups: ["apps"]
+      apiVersions: ["v1"]
+      resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+      operations: ["CREATE", "UPDATE"]
+    - apiGroups: ["batch"]
+      apiVersions: ["v1"]
+      resources: ["jobs", "cronjobs"]
+      operations: ["CREATE", "UPDATE"]
+  namespaceSelector:
+    matchExpressions:
+      - key: "kubernetes.io/metadata.name"
+        operator: In
+        values: ["appco-only"]
+  settings:
+    modifyImagesWithDigest: true # mutate the request and use the digest instead of tag
+    rule: PublicKey
+    signatures:
+      - image: '*'
+        pubKeys:
+          # this array is an AND, not an OR. This key works as of 2025-02-03, it may not work if changes later
+          - |-
+            -----BEGIN PUBLIC KEY-----
+            MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA02FtEt5gBywiyxbmkVsb
+            CujcBg5lur0kpEbfDk10gCcs9shVEqEO3ZsOXHursgoaDAWqdPtsYhsgczGeJz9w
+            Aw+r6BuRV8YOkE37A8s/7IOQUW0tlqtnt11OKhIiZ9+e5l3ed2H1ymKQO3dgreSy
+            rShqYdA3hrItswyp41ApF6zhjSPlR6lAmq3X4wMYLAPptmzfxigTnR4hxB5UNPhs
+            i2qA4vLrUM/i+NohECuLr1EAymvupH26HLEdM+eZnlQn+WbhIP5Grc4ba7XrBv7K
+            kywgTC7CxkiJZR0mUcUD2wTX/Je8Ewj6oPSalx09e2jtzvmU5Kr9XUyMF7Zsj5CA
+            IwIDAQAB
+            -----END PUBLIC KEY-----
