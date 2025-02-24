@@ -19,9 +19,6 @@ manager:
 k3s:
   enabled: true
   runtimePath: /run/k3s/containerd/containerd.sock
-internal:
-  certmanager:
-    enabled: true
 controller:
   replicas: 1
   prime:
