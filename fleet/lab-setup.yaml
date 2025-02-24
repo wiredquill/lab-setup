@@ -82,3 +82,5 @@ spec:
   repo: https://github.com/hierynomus/lab-setup.git
   targets:
     - clusterSelector: null # no clusters
+  helmSecretName: application-collection-basicauth
+  helmRepoRegex: (oci|https)://dp.apps.rancher.io/*
