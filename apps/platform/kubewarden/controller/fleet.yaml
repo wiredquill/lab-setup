@@ -1,4 +1,4 @@
-defaultNamespace: kubewarden-controller
+defaultNamespace: kubewarden
 helm:
   chart: kubewarden-controller
   repo: https://charts.kubewarden.io
