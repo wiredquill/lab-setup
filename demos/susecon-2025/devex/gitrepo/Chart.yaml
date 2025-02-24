@@ -1,0 +1,9 @@
+apiVersion: v2
+name: git-demoapp
+description: Setup a git repository for the demoapp
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Jeroen van Erp
+    email: jeroen@geeko.me

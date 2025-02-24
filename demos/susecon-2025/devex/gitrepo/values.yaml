@@ -1,0 +1,10 @@
+gitea:
+  username: ""
+  password: ""
+  url: ""
+
+organization:
+  name: "susecon"
+  repo:
+    name: "demoapp"
+    originalUrl: "https://github.com/troytop/nodejs-demoapp.git"
