@@ -3,9 +3,10 @@ helm:
   chart: ""
   releaseName: git-demoapp
   values:
-    gitea: https://gitea.${ .ClusterName }.lab.geeko.me
-    username: "susecon"
-    password: "!nfiniteP0wer"
+    gitea:
+      url: https://gitea.${ .ClusterName }.lab.geeko.me
+      username: "susecon"
+      password: "!nfiniteP0wer"
 dependsOn:
   - selectors:
      matchLabels:
