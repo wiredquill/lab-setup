@@ -4,7 +4,7 @@ gitea:
   url: ""
 
 organization:
-  name: "susecon"
+  name: "suse"
   repo:
     name: "demoapp"
     originalUrl: "https://github.com/troytop/nodejs-demoapp.git"
