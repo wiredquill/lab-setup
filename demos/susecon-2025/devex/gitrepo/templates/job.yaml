@@ -13,6 +13,7 @@ spec:
         args:
           - |
             zypper install -y jq git
+            git config http.postBuffer 157286400
             ORG_RESP=$(curl -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
               -H "Content-Type: application/json" \
               --url https://{{ .Values.gitea.url }}/api/v1/orgs \
