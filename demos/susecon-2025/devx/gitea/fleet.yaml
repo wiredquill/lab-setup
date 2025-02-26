@@ -10,4 +10,4 @@ labels:
 overrideTargets:
   - clusterSelector:
       matchLabels:
-        demo: "susecon-devex"
+        demo: "susecon-devx"

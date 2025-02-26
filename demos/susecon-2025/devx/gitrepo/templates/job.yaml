@@ -13,7 +13,6 @@ spec:
         args:
           - |
             zypper install -y jq git
-            git config http.postBuffer 157286400
             ORG_RESP=$(curl -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
               -H "Content-Type: application/json" \
               --url https://{{ .Values.gitea.url }}/api/v1/orgs \
@@ -30,6 +29,7 @@ spec:
             echo $REPO_ID
             git clone {{ .Values.organization.repo.originalUrl }} /tmp/demoapp
             cd /tmp/demoapp
+            git config http.postBuffer 157286400
             git remote set-url origin 'https://{{ .Values.gitea.username }}:{{ .Values.gitea.password }}@{{ .Values.gitea.url }}/{{ .Values.organization.name }}/{{ .Values.organization.repo.name }}.git'
             git push origin main
       restartPolicy: Never

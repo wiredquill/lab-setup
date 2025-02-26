@@ -13,7 +13,7 @@ dependsOn:
 overrideTargets:
   - clusterSelector:
       matchLabels:
-        demo: "susecon-devex"
+        demo: "susecon-devx"
 diff:
   comparePatches:
     - apiVersion: apps/v1
