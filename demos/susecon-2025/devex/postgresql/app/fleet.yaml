@@ -17,4 +17,11 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "postgres"
-
+diff:
+  comparePatches:
+    - apiVersion: apps/v1
+      kind: StatefulSet'
+      name: postgresql
+      namespace: postgresql
+      operations:
+        - { op: "remove", path: "/spec/template/spec/containers/0"}
