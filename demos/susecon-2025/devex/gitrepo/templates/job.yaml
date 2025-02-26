@@ -15,20 +15,20 @@ spec:
             zypper install -y jq git
             ORG_RESP=$(curl -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
               -H "Content-Type: application/json" \
-              --url https://$GITEA_URL/api/v1/orgs \
+              --url https://{{ .Values.gitea.url }}/api/v1/orgs \
               -d '{"username": {{ .Values.organization.name | quote }} }')
             echo $ORG_RESP
             ORG_ID=$(echo $ORG_RESP | jq -r '.id')
             echo $ORG_ID
             REPO_RESP=$(curl -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
               -H "Content-Type: application/json" \
-              --url https://$GITEA_URL/api/v1/orgs/{{ .Values.organization.name }}/repos \
+              --url https://{{ .Values.gitea.url }}/api/v1/orgs/{{ .Values.organization.name }}/repos \
               -d '{"name": {{ .Values.organization.repo.name | quote }} }')
             echo $REPO_RESP
             REPO_ID=$(echo $REPO_RESP | jq -r '.id')
             echo $REPO_ID
             git clone {{ .Values.organization.repo.originalUrl }} /tmp/demoapp
             cd /tmp/demoapp
-            git remote set-url origin 'https://{{ .Values.gitea.username }}:{{ .Values.gitea.password }}@${{ .Values.gitea.url }}/{{ .Values.organization.name }}/{{ .Values.organization.repo.name }}.git'
+            git remote set-url origin 'https://{{ .Values.gitea.username }}:{{ .Values.gitea.password }}@{{ .Values.gitea.url }}/{{ .Values.organization.name }}/{{ .Values.organization.repo.name }}.git'
             git push origin main
       restartPolicy: Never
