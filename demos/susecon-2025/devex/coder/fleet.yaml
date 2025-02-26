@@ -25,7 +25,3 @@ overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "susecon-devex"
-dependsOn:
-  - selector:
-      matchLabels:
-        provides: postgresql
