@@ -6,7 +6,7 @@ helm:
   valuesFiles:
     - values.yaml
 labels:
-  provides: gitea
+  app: gitea
 overrideTargets:
   - clusterSelector:
       matchLabels:

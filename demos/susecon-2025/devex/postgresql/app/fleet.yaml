@@ -5,18 +5,15 @@ helm:
   valuesFiles:
     - values.yaml
 labels:
-  provides: postgresql
+  app: postgresql
 dependsOn:
   - selector:
       matchLabels:
-        provides: postgresql-init
+        app: postgresql-init
 overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "susecon-devex"
-  - clusterSelector:
-      matchLabels:
-        demo: "postgres"
 diff:
   comparePatches:
     - apiVersion: apps/v1

@@ -1,11 +1,7 @@
 defaultNamespace: postgresql
 labels:
-  provides: postgresql-init
+  app: postgresql-init
 overrideTargets:
   - clusterSelector:
       matchLabels:
         demo: "susecon-devex"
-  - clusterSelector:
-      matchLabels:
-        demo: "postgres"
-

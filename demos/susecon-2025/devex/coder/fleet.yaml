@@ -20,7 +20,7 @@ helm:
           host: coder.${ .ClusterName }.lab.geeko.me
           secretName: coder-tls
 labels:
-  provides: coder
+  app: coder
 overrideTargets:
   - clusterSelector:
       matchLabels:
