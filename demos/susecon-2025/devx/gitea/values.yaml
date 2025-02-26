@@ -48,6 +48,7 @@ ingress:
   enabled: true
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
   hosts:
     - host: gitea.${ .ClusterName }.lab.geeko.me
       paths:
