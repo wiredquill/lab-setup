@@ -20,7 +20,7 @@ overrideTargets:
 diff:
   comparePatches:
     - apiVersion: apps/v1
-      kind: StatefulSet'
+      kind: StatefulSet
       name: postgresql
       namespace: postgresql
       operations:
