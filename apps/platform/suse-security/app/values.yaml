@@ -79,3 +79,5 @@ cve:
     enabled: true
     replicas: 1
 rbac: true
+enforcer:
+  enabled: false

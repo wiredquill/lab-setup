@@ -2,6 +2,7 @@ defaultNamespace: gitea
 helm:
   chart: ""
   releaseName: git-demoapp
+  force: true
   values:
     gitea:
       url: gitea.${ .ClusterName }.lab.geeko.me
