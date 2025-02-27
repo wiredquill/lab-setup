@@ -15,6 +15,9 @@ resources:
     cpu: 100m
     memory: 512Mi
 
+actions:
+  enabled: true
+
 redis-cluster:
   enabled: false
 redis:
@@ -30,7 +33,7 @@ persistence:
 gitea:
   config:
     actions:
-      ENABLE: true
+      ENABLED: true
     database:
       DB_TYPE: postgres
       HOST: postgresql.postgresql.svc.cluster.local
