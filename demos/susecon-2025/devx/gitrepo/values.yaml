@@ -7,4 +7,4 @@ organization:
   name: "suse"
   repo:
     name: "demoapp"
-    originalUrl: "https://github.com/troytop/nodejs-demoapp.git"
+    originalUrl: "https://github.com/hierynomus/nodejs-demoapp.git"
