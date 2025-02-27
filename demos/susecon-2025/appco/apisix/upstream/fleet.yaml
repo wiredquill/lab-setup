@@ -4,6 +4,8 @@ helm:
   repo: https://charts.apiseven.com
   releaseName: apisix-upstream
   values:
+    etcd:
+      replicaCount: 1
     dashboard:
       enabled: false
       config:
