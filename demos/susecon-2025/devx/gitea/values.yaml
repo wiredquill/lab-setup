@@ -17,6 +17,8 @@ resources:
 
 actions:
   enabled: true
+  provisioning:
+    enabled: true
 
 redis-cluster:
   enabled: false
