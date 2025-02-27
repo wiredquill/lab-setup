@@ -29,6 +29,8 @@ persistence:
 
 gitea:
   config:
+    actions:
+      ENABLE: true
     database:
       DB_TYPE: postgres
       HOST: postgresql.postgresql.svc.cluster.local
