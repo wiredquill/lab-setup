@@ -28,6 +28,7 @@ helm:
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-prod
               nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+              kubernetes.io/ingress.class: "nginx"
             hosts:
               - host: otlp-http-observability.${ .ClusterName }.lab.geeko.me
                 paths:
