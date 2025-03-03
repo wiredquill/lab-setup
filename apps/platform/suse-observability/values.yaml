@@ -40,13 +40,16 @@ stackstate:
         open:
           CONFIG_FORCE_stackgraph_retentionWindowMs: "86400000"
           CONFIG_FORCE_stackstate_traces_retentionDays: "1"
-  e2es:
-    retention: 1
-  receiver:
-    retention: 1
-  state:
-    config: |
-      stackstate.stateService.defaultPropagation = Transparent
+    server:
+      config: |
+        stackstate.webUIConfig.defaultTimeRange: "LAST_1_HOUR"
+    e2es:
+      retention: 1
+    receiver:
+      retention: 1
+    state:
+      config: |
+        stackstate.stateService.defaultPropagation = Transparent
 victoria-metrics-0:
   backup:
     enabled: false
