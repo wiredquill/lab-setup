@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: demo-scenario
+  namespace: devx
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+      - name: setup
+        image: registry.suse.com/bci/bci-base
+        command: ["bash", "-c", "/scripts/demo-setup.sh"]
+        volumeMounts:
+        - name: load-script
+          mountPath: /scripts
+
+      volumes:
+      - name: load-script
+        configMap:
+          name: demo-scenario-script
+          defaultMode: 0755
+
+      restartPolicy: Never

@@ -1,0 +1,11 @@
+defaultNamespace: devx
+helm:
+  chart: ""
+  releaseName: demo-scenario
+  force: true
+  valuesFiles:
+    - values.yaml
+overrideTargets:
+  - clusterSelector:
+      matchLabels:
+        demo: "susecon-devx"

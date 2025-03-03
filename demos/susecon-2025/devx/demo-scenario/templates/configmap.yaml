@@ -1,0 +1,98 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: demo-scenario-script
+  namespace: devx
+data:
+  demo-setup.sh: |
+    #!/bin/bash
+    set -exuo pipefail
+
+    zypper install -y jq git helm
+    curl -s -o- https://dl.stackstate.com/stackstate-cli/install.sh | STS_CLI_LOCATION=/usr/local/bin bash
+
+    # Setup Repository Gitea
+    ORG_RESP=$(curl -s -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
+      -H "Content-Type: application/json" \
+      --url https://{{ .Values.gitea.url }}/api/v1/orgs \
+      -d '{"username": {{ .Values.gitrepo.organization | quote }} }')
+    echo $ORG_RESP
+    ORG_ID=$(echo $ORG_RESP | jq -r '.id')
+    REPO_RESP=$(curl -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
+      -H "Content-Type: application/json" \
+      --url https://{{ .Values.gitea.url }}/api/v1/orgs/{{ .Values.gitrepo.organization }}/repos \
+      -d '{"name": {{ .Values.gitrepo.name | quote }} }')
+    REPO_ID=$(echo $REPO_RESP | jq -r '.id')
+    git clone {{ .Values.gitrepo.originalUrl }} /tmp/demoapp
+    cd /tmp/demoapp
+    git remote set-url origin https://{{ .Values.gitea.username }}:{{ .Values.gitea.password }}@{{ .Values.gitea.url }}/{{ .Values.gitrepo.organization }}/{{ .Values.gitrepo.name }}.git
+    git push --all origin
+
+    # REPO_RESP=$(curl -s -X POST -u '{{ .Values.gitea.username }}:{{ .Values.gitea.password }}' \
+    #   -H "Content-Type: application/json" \
+    #   --url https://{{ .Values.gitea.url }}/api/v1/repos/migrate \
+    #   -d '{ "clone_addr": {{ .Values.gitrepo.originalUrl | quote }}, "mirror": true, "repo_name": {{ .Values.gitrepo.name | quote }}, "repo_owner": {{ .Values.gitrepo.organization | quote }} }')
+    # echo $REPO_RESP
+
+    # Download Kubeconfig from rancher
+    RANCHER_TOKEN=$(curl -s -X POST \
+      --url 'https://{{ .Values.rancher.url }}/v3-public/localProviders/local?action=login' \
+      -H 'content-type: application/json' \
+      --data '{"username": {{ .Values.rancher.username | quote }}, "password": {{ .Values.rancher.password | quote }}}' | jq -r '.token')
+    CLUSTER_ID=$(curl -s -X GET \
+      -H "Authorization: Bearer $RANCHER_TOKEN" \
+      -H "Accept: application/json" \
+      --url https://{{ .Values.rancher.url }}/v3/clusters?name={{ .Values.gitrepo.targetCluster }} | jq -r '.data[0].id')
+    echo $CLUSTER_ID
+    curl -s -X POST  \
+      -H "Authorization: Bearer $RANCHER_TOKEN" \
+      -H "Accept: application/json" \
+      --url https://{{ .Values.rancher.url }}/v3/clusters/$CLUSTER_ID?action=generateKubeconfig > tmpcfg.json
+    cat tmpcfg.json | jq -r '.config' > {{ .Values.gitrepo.targetCluster }}-kubeconfig.yaml
+
+    # Create a new project for pushing the images to in Registry
+    curl -s -X POST -u '{{ .Values.registry.username }}:{{ .Values.registry.password}}' \
+      -H "Content-Type: application/json" \
+      --url https://{{ .Values.registry.url }}/api/v2.0/projects \
+      -d @- <<EOF
+      {
+        "project_name": {{ .Values.gitrepo.organization | quote }},
+        "public": true
+      }
+    EOF
+
+    # Store secrets in Gitea
+    curl -X PUT -u '{{ .Values.gitea.username}}:{{ .Values.gitea.password }}' \
+      --url https://{{ .Values.gitea.url }}/api/v1/repos/{{ .Values.gitrepo.organization }}/{{ .Values.gitrepo.name }}/actions/secrets/REGISTRY_USER \
+      -H "Content-Type: application/json" \
+      -d '{"data": {{ .Values.registry.username | quote }}}'
+    curl -X PUT -u '{{ .Values.gitea.username}}:{{ .Values.gitea.password }}' \
+      -H "Content-Type: application/json" \
+      --url https://{{ .Values.gitea.url }}/api/v1/repos/{{ .Values.gitrepo.organization }}/{{ .Values.gitrepo.name }}/actions/secrets/REGISTRY_PASSWORD \
+      -d '{"data": {{ .Values.registry.password | quote }} }'
+    curl -X PUT -u '{{ .Values.gitea.username}}:{{ .Values.gitea.password }}' \
+      -H "Content-Type: application/json" \
+      --url https://{{ .Values.gitea.url }}/api/v1/repos/{{ .Values.gitrepo.organization }}/{{ .Values.gitrepo.name }}/actions/secrets/KUBECONFIG \
+      -d "{ \"data\": \"$(base64 -w 0 {{ .Values.gitrepo.targetCluster }}-kubeconfig.yaml)\"}"
+
+    # Install the SUSE Observability Agent to {{ .Values.gitrepo.targetCluster }}
+    stackpacks=$(/usr/local/bin/sts stackpack list-instances --name kubernetes-v2 -o json --url https://{{ .Values.observability.url }} --service-token {{ .Values.observability.serviceToken | quote }})
+    if [[ $(echo $stackpacks | jq -r '.instances[] | select(.config.kubernetes_cluster_name == "'{{ .Values.gitrepo.targetCluster }}'") | .id') ]]; then
+      echo ">>> StackPack for cluster '{{ .Values.gitrepo.targetCluster }}' already exists"
+    else
+      /usr/local/bin/sts stackpack install --name kubernetes-v2 --url https://{{ .Values.observability.url }} --service-token {{ .Values.observability.serviceToken | quote }} -p "kubernetes_cluster_name={{ .Values.gitrepo.targetCluster }}" --unlocked-strategy fail
+      echo ">>> StackPack for cluster '{{ .Values.gitrepo.targetCluster }}' installed"
+    fi
+
+    RESP=$(/usr/local/bin/sts ingestion-api-key create --name {{ .Values.gitrepo.targetCluster | quote }} --output json --url https://{{ .Values.observability.url }} --service-token {{ .Values.observability.serviceToken | quote }})
+    API_KEY=$(echo $RESP | jq -r '."ingestion-api-key".apiKey')
+    echo $API_KEY
+    export KUBECONFIG={{ .Values.gitrepo.targetCluster }}-kubeconfig.yaml
+    helm repo add suse-observability https://charts.rancher.com/server-charts/prime/suse-observability
+    helm repo update
+
+    helm upgrade --install suse-observability-agent suse-observability/suse-observability-agent \
+        --namespace suse-observability --create-namespace \
+        --set stackstate.apiKey=${API_KEY} \
+        --set stackstate.url="https://{{ .Values.observability.url }}/receiver/stsAgent" \
+        --set stackstate.cluster.name={{ .Values.gitrepo.targetCluster | quote }}
