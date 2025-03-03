@@ -15,8 +15,14 @@ opentelemetry-collector:
       nginx.ingress.kubernetes.io/backend-protocol: GRPC
 opentelemetry:
   enabled: true
+
+
 stackstate:
   authentication:
+    serviceToken:
+      bootstrap:
+        token: 1234-abcd-5678-efgh
+        roles: ["stackstate-k8s-troubleshooter", "stackstate-admin", "stackstate-k8s-admin"]
     adminPassword: "$2a$10$1XyTg9cAAeRlMaCnNmeQ4OSikJhRj6oW1BOSc/A44HGrubQcreS.e" # !nfiniteP0wer
   apiKey:
     key: "beTRIDqKh6xvXpCw6wkxIt9bvoyLwJGU"
