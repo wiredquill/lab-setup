@@ -46,6 +46,9 @@ stackstate:
     e2es:
       retention: 1
     receiver:
+      extraEnv:
+        open:
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxConnectionObservationsPerHost: "15000"
       retention: 1
     state:
       config: |
