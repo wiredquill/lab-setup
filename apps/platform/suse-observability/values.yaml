@@ -48,9 +48,9 @@ stackstate:
     receiver:
       extraEnv:
         open:
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxConnectionObservationsPerHost: "15000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxComponentsPerHost: "1000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewRelationsHourlyPerHost: "1000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxConnectionObservationsPerHost: "150000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxComponentsPerHost: "10000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewRelationsHourlyPerHost: "10000"
       retention: 1
     state:
       config: |
