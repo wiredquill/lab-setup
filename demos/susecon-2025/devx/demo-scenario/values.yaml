@@ -21,6 +21,6 @@ gitrepo:
   organization: suse
   name: "demoapp"
   originalUrl: "https://github.com/hierynomus/nodejs-demoapp.git"
-  targetCluster: "castor"
+  targetCluster: "pollux"
   targetContainerRepo: "demoapp"
 
