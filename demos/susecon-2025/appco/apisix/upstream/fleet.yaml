@@ -7,7 +7,7 @@ helm:
     etcd:
       replicaCount: 3
     dashboard:
-      enabled: false
+      enabled: true
       config:
         conf:
           etcd:

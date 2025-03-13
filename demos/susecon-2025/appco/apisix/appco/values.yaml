@@ -1,7 +1,7 @@
 global:
   imagePullSecrets: ["application-collection"]
 dashboard:
-  enabled: false
+  enabled: true
   config:
     conf:
       etcd:
