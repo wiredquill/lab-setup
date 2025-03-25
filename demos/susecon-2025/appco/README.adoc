@@ -1,0 +1,99 @@
+= SUSECon 2025 - Application Collection Demo Setup
+
+This is a demo setup for the SUSECon 2025 Application Collection (AppCo) demo. This demo scenario shows 2 Apache apisix instances running on a cluster, with SUSE Security running a security scan on the cluster.
+
+One apisix instance comes from Upstream, and another comes from the SUSE Application Collection. This highlights the benefits of using the SUSE Application Collection as a trusted and secure source of applications.
+
+== Prerequisites
+
+- 1 VM with SUSE Rancher Manager installed and Fleet
+- 1 Downstream VM
+- AppCo credentials
+- CloudFlare with a managed domain
+  -- This is needed for the cert-manager setup which will ensure that valid certificates are generated using Let's Encrypt for all the apps running on the cluster.
+
+== Preparation
+
+=== Add Secret to Rancher Manager
+
+Because there's a ton of secrets needed these are not stored in the repo. Instead you need to manually create this secret in the Rancher Manager cluster.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fleet-helm-secrets
+  namespace: fleet-default
+type: Opaque
+stringData:
+  secrets-path.yaml: |
+    apps-appco/cert-manager:
+      username: <your_appco_username>
+      password: <your_appco_password>
+    apps-appco/harbor:
+      username: <your_appco_username>
+      password: <your_appco_password>
+    apps-suse/private-registry:
+      username: <your_scc_user>
+      password: <your_scc_password>
+    demos/susecon-2025/appco/apisix:
+      username: <your_appco_username>
+      password: <your_appco_password>
+```
+
+=== Add Secret to Downstream cluster
+
+Similar to the Rancher Manager, you need to add a secret to the downstream cluster that contains necessary setup which is either sensitive or is environment specific.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fleet-secrets
+  namespace: kube-system
+type: Opaque
+stringData:
+  appco-values.yaml: |
+    username: <your_appco_username>
+    token: <your_appco_token>
+  suse-registry-values.yaml: |
+    username: <your_scc_user>
+    token: <your_scc_password>
+  cert-manager-values.yaml: |
+    email: <your_letsencrypt_email>
+    cloudflare:
+      token: <your_cloudflare_token>
+  harbor-values.yaml: |
+    registry:
+      credential:
+        access_key: <your_appco_username>
+        access_secret: <your_appco_token>
+```
+
+=== Annotate the Downstream Cluster
+
+In order to be able to expose all the applications using their respective ingresses, the downstream cluster needs to be annotated with the following labels:
+
+```bash
+kubectl annotate cluster.provisioning.cattle.io -n fleet-default <cluster_name> "hosted-domain=<your_domain>"
+```
+
+== Fleet setup
+
+On the Rancher Manager Cluster run:
+```bash
+kubectl apply -f ../../../fleet/lab-setup.yaml
+```
+
+This will setup fleet with the necessary GitRepo and ClusterGroup.
+
+=== Labeling the Downstream Cluster
+
+Now that Fleet is setup, some default applications are immediately setup, such as Cert-Manager and Kubernetes Reflector. However, for the demo scenario we need to add a few labels to the downstream cluster so that the necessary applications are installed.
+
+```bash
+kubectl label cluster.provisioning.cattle.io -n fleet-default <cluster_name> needs-storage=true
+kubectl label cluster.provisioning.cattle.io -n fleet-default <cluster_name> needs-security=true
+kubectl label cluster.provisioning.cattle.io -n fleet-default <cluster_name> needs-private-registry=true
+kubectl label cluster.provisioning.cattle.io -n fleet-default <cluster_name> demo=susecon-2025/appco
+```
