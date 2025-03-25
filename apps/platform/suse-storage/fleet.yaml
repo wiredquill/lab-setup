@@ -5,8 +5,8 @@ helm:
   releaseName: longhorn
   values:
     ingress:
-      enabled: true
-      host: longhorn.${ .ClusterName }.lab.geeko.me
+      enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
+      ${ if hasKey .ClusterAnnotations "hosted-domain" }host: longhorn.${ .ClusterName }.${ .ClusterAnnotations."hosted-domain" }${ end}
     persistence:
       migratable: true
     longhornUI:
