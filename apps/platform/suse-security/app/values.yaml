@@ -1,18 +1,18 @@
-global:
-  cattle:
-    url: https://rancher.mars.lab.geeko.me
+# global:
+#   cattle:
+#     url: https://rancher.mars.lab.geeko.me
 registry: registry.rancher.com
 labels:
   catalog.cattle.io/cluster-repo-name: rancher-charts
 manager:
   ingress:
-    enabled: true
+    enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
     tls: true
     env:
       ssl: true
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
-    host: security.${ .ClusterName }.lab.geeko.me
+    host: ${ if hasKey .ClusterAnnotations "hosted-domain" }security.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
     secretName: neuvector-tls
   svc:
     type: ClusterIP
@@ -28,8 +28,8 @@ controller:
       type: ClusterIP
   pvc:
     enabled: true
-  ranchersso:
-    enabled: true
+  # ranchersso:
+  #   enabled: true
   configmap:
     enabled: true
     data:
@@ -78,5 +78,5 @@ cve:
   scanner:
     enabled: true
     replicas: 1
-rbac: true
+# rbac: true
 
