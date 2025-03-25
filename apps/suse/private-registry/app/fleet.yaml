@@ -9,4 +9,4 @@ overrideTargets:
       matchLabels:
         needs-private-registry: "true"
 labels:
-  provides: harbor
+  app: harbor

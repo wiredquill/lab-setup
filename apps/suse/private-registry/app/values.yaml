@@ -1,15 +1,16 @@
 expose:
+  type: ${ if hasKey .ClusterAnnotations "hosted-domain" }ingress${ else}nodePort${ end}
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
     className: nginx
     hosts:
-      core: registry.${ .ClusterName }.lab.geeko.me
+      core: ${ if hasKey .ClusterAnnotations "hosted-domain" }registry.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
   tls:
     certSource: secret
     secret:
       secretName: harbor-tls
-externalURL: https://registry.${ .ClusterName }.lab.geeko.me
+externalURL: ${ if hasKey .ClusterAnnotations "hosted-domain" }https://registry.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
 global:
   imagePullSecrets: ["suse-registry"]
 harborAdminPassword: admin

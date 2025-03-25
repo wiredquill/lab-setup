@@ -9,15 +9,15 @@ helm:
         key: harbor-values.yaml
   values:
     harbor:
-      url: registry.${ .ClusterName }.lab.geeko.me
+      url: ${ if hasKey .ClusterAnnotations "hosted-domain" }registry.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
       username: admin
       password: admin
 labels:
-  provides: private-registry-proxy-cache
+  app: private-registry-proxy-cache
 dependsOn:
   - selector:
       matchLabels:
-        provides: harbor
+        app: harbor
 overrideTargets:
   - clusterSelector:
       matchLabels:
