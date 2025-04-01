@@ -7,7 +7,7 @@ helm:
 overrideTargets:
   - clusterSelector:
       matchLabels:
-        demo: "susecon-2025/appco"
+        demo: "susecon-2025-appco"
 dependsOn:
   - selector:
       matchLabels:

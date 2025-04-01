@@ -1,7 +1,7 @@
 overrideTargets:
   - clusterSelector:
       matchLabels:
-        demo: "susecon-appco"
+        demo: "susecon-2025-appco"
 dependsOn:
   - selectors:
       matchLabels:
