@@ -2,14 +2,14 @@ global:
   imageRegistry: "registry.rancher.com"
 
 ingress:
-  enabled: true
+  enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     kubernetes.io/ingress.class: "nginx"
 opentelemetry-collector:
   ingress:
-    enabled: true
+    enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
@@ -40,6 +40,7 @@ stackstate:
         open:
           CONFIG_FORCE_stackgraph_retentionWindowMs: "86400000"
           CONFIG_FORCE_stackstate_traces_retentionDays: "1"
+          CONFIG_FORCE_stackstate_featureSwitches_monitorEnableExperimentalAPIs: "true"
     server:
       config: |
         stackstate.webUIConfig.defaultTimeRange: "LAST_1_HOUR"
