@@ -9,16 +9,16 @@ helm:
         - name: CODER_PG_CONNECTION_URL
           value: "postgres://coder:coder@postgresql.postgresql.svc.cluster.local:5432/coder?sslmode=disable"
         - name: CODER_ACCESS_URL
-          value: "https://coder.${ .ClusterName }.lab.geeko.me"
+          value: ${ if hasKey .ClusterAnnotations "hosted-domain" }https://coder.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
       ingress:
-        enable: true
+        enable: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
           nginx.ingress.kubernetes.io/proxy-body-size: 8m
-        host: coder.${ .ClusterName }.lab.geeko.me
+        host: ${ if hasKey .ClusterAnnotations "hosted-domain" }coder.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
         tls:
           enable: true
-          host: coder.${ .ClusterName }.lab.geeko.me
+          host: ${ if hasKey .ClusterAnnotations "hosted-domain" }coder.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
           secretName: coder-tls
 labels:
   app: coder

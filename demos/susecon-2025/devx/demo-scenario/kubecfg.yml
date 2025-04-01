@@ -1,5 +1,0 @@
-{
-  "baseType": "generateKubeConfigOutput",
-  "config": "apiVersion: v1\nkind: Config\nclusters:\n- name: \"castor\"\n  cluster:\n    server: \"https://rancher.sirius.lab.geeko.me/k8s/clusters/c-m-8898g8fd\"\n\nusers:\n- name: \"castor\"\n  user:\n    token: \"kubeconfig-user-hfxxvg7shk:zqzgbl66l4b6qfjbdrxr89rd8rkc5d6zz49f74flkfpdvrbkncg2v9\"\n\n\ncontexts:\n- name: \"castor\"\n  context:\n    user: \"castor\"\n    cluster: \"castor\"\n\ncurrent-context: \"castor\"\n",
-  "type": "generateKubeConfigOutput"
-}

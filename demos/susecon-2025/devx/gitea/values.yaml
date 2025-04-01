@@ -52,16 +52,16 @@ gitea:
     email: "jeroen@geeko.me"
 
 ingress:
-  enabled: true
+  enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: 8m
   hosts:
-    - host: gitea.${ .ClusterName }.lab.geeko.me
+    - host: ${ if hasKey .ClusterAnnotations "hosted-domain" }gitea.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
       paths:
         - path: /
           pathType: Prefix
   tls:
     - secretName: gitea-tls
       hosts:
-        - gitea.${ .ClusterName }.lab.geeko.me
+        - ${ if hasKey .ClusterAnnotations "hosted-domain" }gitea.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
