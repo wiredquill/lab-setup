@@ -3,6 +3,7 @@ helm:
   chart: longhorn
   repo: https://charts.longhorn.io
   releaseName: longhorn
+  version: "1.8.1"
   values:
     ingress:
       enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
