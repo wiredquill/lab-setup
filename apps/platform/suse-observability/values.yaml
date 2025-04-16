@@ -2,14 +2,14 @@ global:
   imageRegistry: "registry.rancher.com"
 
 ingress:
-  enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
+  enabled: ${if hasKey .ClusterAnnotations "hosted-domain"}true${else}false${end}
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     kubernetes.io/ingress.class: "nginx"
 opentelemetry-collector:
   ingress:
-    enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
+    enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${else}false${end}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
