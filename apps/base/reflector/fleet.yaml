@@ -1,7 +1,0 @@
-defaultNamespace: reflector
-helm:
-  chart: reflector
-  repo: https://emberstack.github.io/helm-charts
-  releaseName: reflector
-labels:
-  provides: reflector
