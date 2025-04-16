@@ -14,31 +14,30 @@ One apisix instance comes from Upstream, and another comes from the SUSE Applica
 
 == Preparation
 
-=== Add Secret to Rancher Manager
+=== Add Secrets to Rancher Manager
 
-Because there's a ton of secrets needed these are not stored in the repo. Instead you need to manually create this secret in the Rancher Manager cluster.
+Because there's a ton of secrets needed these are not stored in the repo. Instead you need to manually create this secrets in the Rancher Manager cluster.
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  name: fleet-helm-secrets
+  name: application-collection-basicauth
   namespace: fleet-default
-type: Opaque
+type: kubernetes.io/basic-auth
 stringData:
-  secrets-path.yaml: |
-    apps-appco/cert-manager:
-      username: <your_appco_username>
-      password: <your_appco_password>
-    apps-appco/harbor:
-      username: <your_appco_username>
-      password: <your_appco_password>
-    apps-suse/private-registry:
-      username: <your_scc_user>
-      password: <your_scc_password>
-    demos/susecon-2025/appco/apisix:
-      username: <your_appco_username>
-      password: <your_appco_password>
+  username: <your_appco_username>
+  password: <your_appco_password>
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: scc-suse-basicauth
+  namespace: fleet-default
+type: kubernetes.io/basic-auth
+stringData:
+  username: <your_scc_user>
+  password: <your_scc_password>
 ```
 
 === Add Secret to Downstream cluster
