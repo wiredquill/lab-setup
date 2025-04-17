@@ -8,6 +8,9 @@ helm:
     ingress:
       enabled: ${ if hasKey .ClusterAnnotations "hosted-domain" }true${ else }false${ end}
       host: ${ if hasKey .ClusterAnnotations "hosted-domain" }longhorn.${ .ClusterName }.${ get .ClusterAnnotations "hosted-domain" }${ end}
+      ingressClassName: nginx
+      tls: true
+      tlsSecret: longhorn-ingress-tls
     persistence:
       migratable: true
     longhornUI:
