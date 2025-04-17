@@ -46,6 +46,10 @@ data:
     - firewall-cmd --permanent --zone=trusted --add-source=10.42.0.0/16 #pods
     - firewall-cmd --permanent --zone=trusted --add-source=10.43.0.0/16 #services
     - firewall-cmd --reload
+    - echo "net.ipv6.conf.all.disable_ipv6=1" >> /etc/sysctl.conf
+    - echo "net.ipv6.conf.default.disable_ipv6=1" >> /etc/sysctl.conf
+    - echo "net.ipv6.conf.tun0.disable_ipv6=1" >> /etc/sysctl.conf
+    - sysctl -p
     - sudo /tmp/install_k3s.sh
     - - systemctl
       - enable
