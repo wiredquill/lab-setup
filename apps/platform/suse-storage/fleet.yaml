@@ -11,6 +11,8 @@ helm:
       ingressClassName: nginx
       tls: true
       tlsSecret: longhorn-ingress-tls
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
     persistence:
       migratable: true
     longhornUI:
