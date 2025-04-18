@@ -1,0 +1,14 @@
+apiVersion: loadbalancer.harvesterhci.io/v1beta1
+kind: IPPool
+metadata:
+  name: global-ip-pool
+spec:
+  ranges:
+  - subnet: 10.9.0.0/24
+    rangeStart: 10.9.0.70
+    rangeEnd: 10.9.0.89
+  selector:
+    scope:
+    - project: "*"
+      namespace: "*"
+      guestCluster: "*"

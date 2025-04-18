@@ -1,0 +1,19 @@
+defaultNamespace: kube-system
+helm:
+  releaseName: loadbalancer-ip
+
+targets:
+  - name: blue-cluster
+    clusterName: blue
+    kustomize:
+      dir: overlays/blue
+
+  - name: green-cluster
+    clusterName: green
+    kustomize:
+      dir: overlays/green
+
+  - name: orange-cluster
+    clusterName: orange
+    kustomize:
+      dir: overlays/orange
