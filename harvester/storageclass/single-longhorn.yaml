@@ -6,8 +6,6 @@ metadata:
     storageclass.beta.kubernetes.io/is-default-class: 'true'
     storageclass.kubernetes.io/is-default-class: 'true'
   name: single-longhorn
-  resourceVersion: '36045'
-  uid: 6118b07a-2764-4e54-aae8-72f6b1210033
 parameters:
   migratable: 'true'
   numberOfReplicas: '1'
