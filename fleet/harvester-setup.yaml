@@ -1,0 +1,138 @@
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/cloudinit
+# ——————————————————————————————————————————————
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-cloudinit
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-cloudinit
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/cloudinit
+  targets:
+    - clusterGroup: hci-cloudinit
+
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/keypair
+# ——————————————————————————————————————————————
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-keypair
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-keypair
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/keypair
+  targets:
+    - clusterGroup: hci-keypair
+
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/loadbalancer
+# ——————————————————————————————————————————————
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-loadbalancer
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-loadbalancer
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/loadbalancer
+  targets:
+    - clusterGroup: hci-loadbalancer
+
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/storageclass
+# ——————————————————————————————————————————————
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-storageclass
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-storageclass
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/storageclass
+  targets:
+    - clusterGroup: hci-storageclass
+
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/vmnetwork
+# ——————————————————————————————————————————————
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-vmnetwork
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-vmnetwork
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/vmnetwork
+  targets:
+    - clusterGroup: hci-vmnetwork
