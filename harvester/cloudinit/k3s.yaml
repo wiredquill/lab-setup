@@ -10,16 +10,35 @@ data:
     ## template: jinja
     #cloud-config
 
+# -- User accounts --
     users:
-    - name: jeroen
-      sudo: ALL=(ALL) NOPASSWD:ALL
-      passwd: "$6$FwXqnOc8hOs0Z65p$ZoBsbamvwbew.ryHzIqW3yy0pUgCHCbhq6WqRWuHwclg66imPz4uGwX0SrgLm7kk6d3Ji/Na32pN8ktZrGPhx1"
-      ssh_authorized_keys:
-        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDmt6+SsXzLoRptifmSKlyjq6grRf4Yb1f2g0Etn7PKUK0LLKO3qZmSEgDwhohALXU7ZhSMVttYgLCjtFd4kG/JEdJVkGSqppLekgpc/T3yG8K3sO78UBdWtnLVY/6MtIHC1GHsAikTuPIJfIqftIk1RZwLKfIIgkT3HQAl9Kzn45QCVj4RrOhekHmqlgePrasTe1HKFRjQ/cuM6cqHSaPNWHrgshlci5BVTS6hqjNxeW/Rb/X4vDcvs/5glRvd0M3ESr1Aii5fhATzHSCGUje2U91ztRDvXdZQNsxQGPP1oTVTRa0oxKutpZee5lMEUjwU6hzoAx3jxPehayFjWJh
-        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHkFvXkGD1yoUsEMijoNi3tb0MlB3CiuQVdvpFsOf7P+ jeroen@localhost.localdomain
-        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSE68VYUiwL5a8xcmv34RZ1OYnrEcRBe4NaeKpE/twU jeroen@hierynomus.com
-      lock_passwd: false
-      shell: /bin/bash
+      - name: sles
+        passwd: "$6$SalTsaLt$qzEfb8Z5QsG6iOUHXuUEdS5/0T5uej5nYNcYZQQf99dCdB7l8zVBYGBjw3D9TqnSR4NDNIWxEckOEtmIAUc6n."
+        shell: /bin/bash
+        groups: users
+        lock_passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        ssh_authorized_keys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDrkMfTTDxPafXv+E1olBKCqu3ggaRGeitMaJ5iJHr588Bo2PcPY+xlM5iM1WITNBwUtdotxtIPVv25sijeEB4eCn4Sx/460FB9cbucGMUqZeeMZe++ibziT/5vyDQhIBwEpw3tm5qtd1rLJkdIbq6hyxbkH2lr8RKfEGA9CCCTFeX7CPHHsVx3KXoS2TDceVHEaMaNBSpT1wkUJ26WLnbjYIkeTI2tqWmS/zV2u8wE9hyWsKheXRL3P9Ams+n2t4UmjNb0Xs96hkjHbcl8Pa8dlrOOER9oINWblfbuJR28Q3vlPR/3yLC1JI9o/+Vq92aMRZiA2BMg+uC/vj18GnKwrSJQ1tEt4hnHxwTaMBjBhXuH6AJDL1LxwKMhP8iNHmke/VuIUcjtusRmpDGtVy/Jov506FAN9coWqg0DC7RojwvGaK8SSCHDV6XLZGXg5PuoyiagCRqGsp6Y5FUMtodNLEzvWe3yLS7gOLTEfoddZM9cn+u9jzQVgyqfjT9xUtc= erquill@Erins-MacBook-Pro-2.local
+      - name: jeroen
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        passwd: "$6$FwXqnOc8hOs0Z65p$ZoBsbamvwbew.ryHzIqW3yy0pUgCHCbhq6WqRWuHwclg66imPz4uGwX0SrgLm7kk6d3Ji/Na32pN8ktZrGPhx1"
+        ssh_authorized_keys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDDmt6+SsXzLoRptifmSKlyjq6grRf4Yb1f2g0Etn7PKUK0LLKO3qZmSEgDwhohALXU7ZhSMVttYgLCjtFd4kG/JEdJVkGSqppLekgpc/T3yG8K3sO78UBdWtnLVY/6MtIHC1GHsAikTuPIJfIqftIk1RZwLKfIIgkT3HQAl9Kzn45QCVj4RrOhekHmqlgePrasTe1HKFRjQ/cuM6cqHSaPNWHrgshlci5BVTS6hqjNxeW/Rb/X4vDcvs/5glRvd0M3ESr1Aii5fhATzHSCGUje2U91ztRDvXdZQNsxQGPP1oTVTRa0oxKutpZee5lMEUjwU6hzoAx3jxPehayFjWJh
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHkFvXkGD1yoUsEMijoNi3tb0MlB3CiuQVdvpFsOf7P+ jeroen@localhost.localdomain
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSE68VYUiwL5a8xcmv34RZ1OYnrEcRBe4NaeKpE/twU jeroen@hierynomus.com
+        lock_passwd: false
+        shell: /bin/bash
+      - name: erin
+        passwd: "$6$SalTsaLt$qzEfb8Z5QsG6iOUHXuUEdS5/0T5uej5nYNcYZQQf99dCdB7l8zVBYGBjw3D9TqnSR4NDNIWxEckOEtmIAUc6n."
+        shell: /bin/bash
+        groups: users
+        lock_passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        ssh_authorized_keys:
+          - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDrkMfTTDxPafXv+E1olBKCqu3ggaRGeitMaJ5iJHr588Bo2PcPY+xlM5iM1WITNBwUtdotxtIPVv25sijeEB4eCn4Sx/460FB9cbucGMUqZeeMZe++ibziT/5vyDQhIBwEpw3tm5qtd1rLJkdIbq6hyxbkH2lr8RKfEGA9CCCTFeX7CPHHsVx3KXoS2TDceVHEaMaNBSpT1wkUJ26WLnbjYIkeTI2tqWmS/zV2u8wE9hyWsKheXRL3P9Ams+n2t4UmjNb0Xs96hkjHbcl8Pa8dlrOOER9oINWblfbuJR28Q3vlPR/3yLC1JI9o/+Vq92aMRZiA2BMg+uC/vj18GnKwrSJQ1tEt4hnHxwTaMBjBhXuH6AJDL1LxwKMhP8iNHmke/VuIUcjtusRmpDGtVy/Jov506FAN9coWqg0DC7RojwvGaK8SSCHDV6XLZGXg5PuoyiagCRqGsp6Y5FUMtodNLEzvWe3yLS7gOLTEfoddZM9cn+u9jzQVgyqfjT9xUtc= erquill@Erins-MacBook-Pro-2.local
+
+# -- Packages --
 
     packages:
     - curl
