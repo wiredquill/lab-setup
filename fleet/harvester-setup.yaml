@@ -136,3 +136,30 @@ spec:
     - /harvester/vmnetwork
   targets:
     - clusterGroup: hci-vmnetwork
+
+# ——————————————————————————————————————————————
+# ClusterGroup + GitRepo for /harvester/vmimage
+# ——————————————————————————————————————————————
+apiVersion: fleet.cattle.io/v1alpha1
+kind: ClusterGroup
+metadata:
+  name: hci-vmimage
+  namespace: fleet-default
+spec:
+  selector:
+    matchLabels:
+      provider.cattle.io: harvester
+---
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: hci-vmimage
+  namespace: fleet-default
+spec:
+  repo: https://github.com/wiredquill/lab-setup.git
+  branch: main
+  correctDrift: {}
+  paths:
+    - /harvester/vmimage
+  targets:
+    - clusterGroup: hci-vmimage
