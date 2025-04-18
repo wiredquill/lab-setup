@@ -1,6 +1,7 @@
 # ——————————————————————————————————————————————
 # ClusterGroup + GitRepo for /harvester/cloudinit
 # ——————————————————————————————————————————————
+---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: ClusterGroup
 metadata:
