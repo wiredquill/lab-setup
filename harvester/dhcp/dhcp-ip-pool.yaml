@@ -1,0 +1,19 @@
+apiVersion: network.harvesterhci.io/v1alpha1
+kind: IPPool
+metadata:
+  name: net-10-9
+  namespace: default
+spec:
+  ipv4Config:
+    serverIP: 10.9.0.100
+    cidr: 10.9.0.0/24
+    pool:
+      start: 10.9.0.101
+      end: 10.9.0.120
+      exclude:
+      - 10.9.0.100
+    router: 10.9.0.1
+    dns:
+    - 10.9.0.250
+    leaseTime: 300
+  networkName: default/net-10-9
