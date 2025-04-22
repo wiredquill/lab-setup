@@ -11,7 +11,3 @@ helm:
     dns01RecursiveNameservers: "8.8.8.8:53,1.1.1.1:53"
 labels:
   provides: cert-manager
-dependsOn:
-  - selector:
-      matchLabels:
-        provides: application-collection
