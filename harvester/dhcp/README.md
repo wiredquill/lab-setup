@@ -7,18 +7,6 @@ It uses the `vm-dhcp-controller` add-on and defines a range of addresses that Ha
 
 ---
 
-## ❓ What is `serverIP`?
-
-The `serverIP` is the IP address used by the Harvester **DHCP server** itself to respond to DHCP requests.  
-It must:
-- Be inside the same subnet as the `cidr`
-- Be **outside** the pool of assignable IPs
-- Not conflict with your router or other devices
-
-Example in this setup:
-- The pool ranges from `10.9.0.101` to `10.9.0.120`
-- `serverIP` is `10.9.0.100` → this is the DHCP server’s identity on the network
-
 ---
 
 ## 🔗 Official Documentation
@@ -54,11 +42,29 @@ After installing the controller:
 - Enable the `vm-dhcp-controller` add-on
 - Optionally, enable the **Dashboard** addon to visualize DHCP leases and allocations
 
+### 3. **Apply IP Pool**
+
+Example Pool
 ---
+```
+  ipv4Config:
+    serverIP: 10.9.0.100
+    cidr: 10.9.0.0/24
+    pool:
+      start: 10.9.0.101
+      end: 10.9.0.120
+      exclude:
+      - 10.9.0.100
+    router: 10.9.0.1
+    dns:
+    - 10.9.0.250
+    leaseTime: 300
+  networkName: default/backbone-vla
+```
 
-## 📦 Apply the IPPool Config
+## 📦 IP Pool Configuration
 
-Once the controller is installed and running, apply the IPPool config:
+Once the DHCP controller is installed and running, apply the IP pool config:
 
 ```bash
 kubectl apply -f dhcp-ip-pool.yaml
@@ -66,25 +72,23 @@ kubectl apply -f dhcp-ip-pool.yaml
 
 This creates a managed DHCP IP pool under the network `default/net-10-9`.
 
----
+The key configuration values used in this pool are:
 
-## 🔧 Configuration Summary
+| Field         | Value                    |
+|---------------|--------------------------|
+| **CIDR**      | `10.9.0.0/24`            |
+| **Server IP** | `10.9.0.100`             |
+| **IP Range**  | `10.9.0.101 – 10.9.0.120`|
+| **Router**    | `10.9.0.1`               |
+| **DNS**       | `10.9.0.250`             |
+| **Lease Time**| `300s (5 minutes)`       |
 
-| Field        | Value                    |
-|--------------|--------------------------|
-| **CIDR**     | `10.9.0.0/24`            |
-| **Server IP**| `10.9.0.100`             |
-| **IP Range** | `10.9.0.101 – 10.9.0.120`|
-| **Router**   | `10.9.0.1`               |
-| **DNS**      | `1.9.0.250`              |
-| **Lease Time**| `300s (5 minutes)`      |
-
----
+**Note:** `serverIP` must be within the same subnet as the CIDR, outside the pool range, and must not conflict with any existing devices.
 
 ## 🧪 Test the Pool
 
 After applying the pool:
-1. Create a VM using the `default/net-10-9` network.
+1. Create a VM using the `default/backbone-vlan` network.
 2. Ensure DHCP is selected in the VM network settings.
 3. Boot the VM and confirm it receives an IP from the range (`10.9.0.101`–`10.9.0.120`).
 
