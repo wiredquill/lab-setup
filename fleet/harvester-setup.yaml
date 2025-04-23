@@ -18,7 +18,7 @@ metadata:
   name: hci-cloudinit
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
@@ -46,7 +46,7 @@ metadata:
   name: hci-keypair
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
@@ -74,7 +74,7 @@ metadata:
   name: hci-loadbalancer
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
@@ -102,7 +102,7 @@ metadata:
   name: hci-storageclass
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
@@ -130,7 +130,7 @@ metadata:
   name: hci-vmnetwork
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
@@ -157,7 +157,7 @@ metadata:
   name: hci-vmimage
   namespace: fleet-default
 spec:
-  repo: https://github.com/wiredquill/lab-setup.git
+  repo: https://github.com/hierynomus/lab-setup.git
   branch: main
   correctDrift: {}
   paths:
