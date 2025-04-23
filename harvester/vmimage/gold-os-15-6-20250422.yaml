@@ -1,0 +1,19 @@
+apiVersion: harvesterhci.io/v1beta1
+kind: VirtualMachineImage
+metadata:
+  annotations:
+    harvesterhci.io/storageClassName: single-longhorn
+  name: opensuse-os-15.6-20250422
+  labels:
+    harvesterhci.io/image-type: raw_qcow2
+    harvesterhci.io/imageDisplayName: "opensuse-leap-15.6-20250422"
+    harvesterhci.io/os-type: openSUSE
+  namespace: default
+spec:
+  checksum: ""
+  displayName: gold-os-15.6-20250422
+  pvcName: ""
+  pvcNamespace: ""
+  retry: 3
+  sourceType: download
+  url: http://files.dna-42.com/images/gold-os-15-6-20250422.qcow2

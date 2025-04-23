@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-cloudinit: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -38,7 +38,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-keypair: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -66,7 +66,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-loadbalancer: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -94,7 +94,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-storageclass: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -122,7 +122,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-vmnetwork: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
@@ -141,6 +141,7 @@ spec:
 # ——————————————————————————————————————————————
 # ClusterGroup + GitRepo for /harvester/vmimage
 # ——————————————————————————————————————————————
+---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: ClusterGroup
 metadata:
@@ -149,7 +150,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      provider.cattle.io: harvester
+      needs-hci-vmimage: "true"
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
