@@ -1,0 +1,7 @@
+cloudflare_api_token=""
+letsencrypt_email=""
+domain_suffix = ""
+kubeconfig_path = ""
+kubeconfig_context = ""
+ssh_private_key = ""
+ssh_username = ""
