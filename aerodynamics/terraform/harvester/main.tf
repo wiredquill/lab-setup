@@ -41,3 +41,24 @@ resource "harvester_virtualmachine" "control-tower" {
         })
     }
 }
+
+resource "ssh_resource" "retrieve_control_tower_kubeconfig" {
+  depends_on = [
+    harvester_virtualmachine.control-tower
+  ]
+  host = "control-tower.${var.domain_suffix}"
+  commands = [
+    "sudo sed \"s/127.0.0.1/control-tower.${var.domain_suffix}/g\" /etc/rancher/k3s/k3s.yaml"
+  ]
+  user        = var.ssh_username
+  private_key = file(var.ssh_private_key)
+}
+
+module "rancher-deploy" {
+  source = "./modules/rancher-deploy"
+  cloudflare_api_token = var.cloudflare_api_token
+  letsencrypt_email = var.letsencrypt_email
+  kubeconfig = local_file.control-tower_kubeconfig.filename
+  admin_password = "!nfiniteP0wer"
+  rancher_server_dns = "rancher.control-tower.${var.domain_suffix}"
+}
