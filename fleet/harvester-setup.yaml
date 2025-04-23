@@ -141,6 +141,7 @@ spec:
 # ——————————————————————————————————————————————
 # ClusterGroup + GitRepo for /harvester/vmimage
 # ——————————————————————————————————————————————
+---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: ClusterGroup
 metadata:
