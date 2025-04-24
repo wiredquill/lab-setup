@@ -1,0 +1,40 @@
+{{- /* Define variables based on values.yaml */}}
+{{- $imageName := .Values.image.name }}
+{{- $imageNamespace := .Values.image.namespace }}
+{{- $imageDisplayName := .Values.image.displayName }}
+{{- $storageClassName := .Values.image.storageClassName }}
+{{- $osType := .Values.image.osType }}
+{{- $sourceType := .Values.image.sourceType }}
+{{- $url := .Values.image.url }}
+{{- $checksum := .Values.image.checksum }}
+{{- $retryCount := .Values.image.retry }}
+
+{{- /* Perform the lookup to check if the image already exists */}}
+{{- $existingImage := lookup "harvesterhci.io/v1beta1" "VirtualMachineImage" $imageNamespace $imageName }}
+
+{{- /* Only render the VirtualMachineImage if it doesn't exist */}}
+{{- if not $existingImage }}
+apiVersion: harvesterhci.io/v1beta1
+kind: VirtualMachineImage
+metadata:
+  name: {{ $imageName }}
+  namespace: {{ $imageNamespace }}
+  annotations:
+    harvesterhci.io/storageClassName: {{ $storageClassName }}
+  labels:
+    # Using specific labels Harvester might look for
+    harvesterhci.io/image-type: raw_qcow2 # Assuming raw_qcow2 based on file extension
+    harvesterhci.io/imageDisplayName: {{ $imageDisplayName | quote }} # Ensure display name is quoted
+    harvesterhci.io/os-type: {{ $osType }}
+spec:
+  checksum: {{ $checksum | quote }}
+  displayName: {{ $imageDisplayName }}
+  pvcName: "" # Let Harvester manage PVC creation
+  pvcNamespace: "" # Let Harvester manage PVC creation
+  retry: {{ $retryCount }}
+  sourceType: {{ $sourceType }}
+  url: {{ $url }}
+{{- else }}
+# Helm template condition: VirtualMachineImage {{ $imageName }} in namespace {{ $imageNamespace }} already exists. Skipping creation.
+# You can remove this comment block if you prefer no output when skipped.
+{{- end }}

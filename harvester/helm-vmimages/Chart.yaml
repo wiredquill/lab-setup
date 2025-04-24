@@ -1,0 +1,6 @@
+apiVersion: v2
+name: harvester-image-opensuse
+description: A Helm chart to deploy the openSUSE Leap 15.6 NoCloud VirtualMachineImage to Harvester, checking for existence first.
+type: application
+version: 0.1.0 # Increment as you make changes
+appVersion: "1.0" # Optional: version of the "app" this chart deploys

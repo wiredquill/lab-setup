@@ -1,0 +1,15 @@
+# Default values for harvester-image-opensuse.
+# You can override these values.
+
+image:
+  name: opensuse-leap-15.6-nc
+  namespace: default
+  displayName: opensuse-leap-15.6-nc
+  storageClassName: single-longhorn # Specify the storage class harvester should use
+  osType: openSUSE
+  sourceType: download
+  # The URL for the qcow2 image
+  url: https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.6/images/openSUSE-Leap-15.6.x86_64-NoCloud.qcow2
+  # Optional: specify checksum if known, leave empty "" otherwise
+  checksum: ""
+  retry: 3 # Number of download retries
