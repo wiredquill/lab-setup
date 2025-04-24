@@ -18,12 +18,12 @@ variable "domain_suffix" {
 
 variable "ssh_username" {
     type = string
-    default = "jeroen"
+    default = ""
 }
 
 variable "ssh_private_key" {
     type = string
-    default = "~/.ssh/id_rsa"
+    default = ""
 }
 
 variable "cloudflare_api_token" {
