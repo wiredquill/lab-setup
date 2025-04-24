@@ -188,15 +188,15 @@ spec:
   repo: https://github.com/wiredquill/lab-setup.git
   branch: main
   # Removed the 'paths' key as we are now using Helm
-  # paths:
-  #   - /harvester/vmimage # This line is removed or commented out
+  paths:
+   - /harvester/vmimage # This line is removed or commented out
 
   # Added Helm configuration
   helm:
     # Path to the directory containing Chart.yaml within the repo
     # Assuming 'helm-vmimage' is at the root of the repo.
     # If it's nested like '/harvester/helm-vmimages', adjust the path accordingly.
-    chart: ./harvester/helm-vmimage
+    chart: /harvester/helm-vmimage
 
     # A name for the Helm release that will be created in the target cluster
     releaseName: harvester-helm-vmimage
