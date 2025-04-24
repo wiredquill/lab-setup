@@ -154,7 +154,7 @@ spec:
 ---
 apiVersion: fleet.cattle.io/v1alpha1
 kind: GitRepo
-metadata:
+metadata: 
   name: hci-vmimage
   namespace: fleet-default
 spec:
@@ -196,7 +196,7 @@ spec:
     # Path to the directory containing Chart.yaml within the repo
     # Assuming 'helm-vmimage' is at the root of the repo.
     # If it's nested like '/harvester/helm-vmimages', adjust the path accordingly.
-    chart: /harvester/helm-vmimage
+    chart: ./harvester/helm-vmimage
 
     # A name for the Helm release that will be created in the target cluster
     releaseName: harvester-helm-vmimage
