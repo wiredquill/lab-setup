@@ -194,12 +194,12 @@ spec:
   # Added Helm configuration
   helm:
     # Path to the directory containing Chart.yaml within the repo
-    # Assuming 'helm-vmimages' is at the root of the repo.
+    # Assuming 'helm-vmimage' is at the root of the repo.
     # If it's nested like '/harvester/helm-vmimages', adjust the path accordingly.
-    chart: /harvester/helm-vmimages
+    chart: /harvester/helm-vmimage
 
     # A name for the Helm release that will be created in the target cluster
-    releaseName: harvester-helm-vmimages
+    releaseName: harvester-helm-vmimage
 
     # Optional: If you needed to override values from values.yaml
     # values:
