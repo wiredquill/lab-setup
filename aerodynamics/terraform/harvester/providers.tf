@@ -31,13 +31,12 @@ terraform {
 
 provider "harvester" {
   # Path to kubeconfig file
-  kubeconfig = var.kubeconfig_path
-  kubecontext = var.kubeconfig_context
+  kubeconfig = var.harvester_kubeconfig_path
+  kubecontext = var.harvester_kubeconfig_context
 }
 
 provider "kubectl" {
-  config_path = var.kubeconfig_path
-  config_context = var.kubeconfig_context
+  config_path = var.harvester_kubeconfig_path
+  config_context = var.harvester_kubeconfig_context
   load_config_file = true
-  # Path to kubeconfig file
 }
