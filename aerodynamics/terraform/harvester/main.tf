@@ -71,4 +71,5 @@ module "rancher-deploy" {
   kubeconfig = local_file.control-tower_kubeconfig.filename
   admin_password = "!nfiniteP0wer"
   rancher_server_dns = "rancher.control-tower.${var.domain_suffix}"
+  rancher_helm_repository = var.rancher_helm_repository
 }

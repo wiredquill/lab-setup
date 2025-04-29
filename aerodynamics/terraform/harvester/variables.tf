@@ -45,3 +45,9 @@ variable "vmimages" {
         "ubuntu-24.04" = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
     }
 }
+
+variable "rancher_helm_repository" {
+  type        = string
+  description = "The helm repository, where the Rancher helm chart is installed from"
+  default     = "https://releases.rancher.com/server-charts/latest"
+}
