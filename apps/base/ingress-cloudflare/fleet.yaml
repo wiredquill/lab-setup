@@ -8,6 +8,9 @@ helm:
         name: fleet-secrets
         namespace: kube-system
         key: cloudflare-values.yaml
+  values:
+    cloudflare:
+      tunnelName: lab-tunnel
 labels:
   app: cloudflare-tunnel-ingress-controller
 overrideTargets:
