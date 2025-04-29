@@ -98,4 +98,6 @@ data:
       - systemctl enable --now cloud-init.service                    # Start cloud-init service
       - systemctl disable --now firewalld.service                    # Disable Firewall
       - sysctl -p /etc/sysctl.d/99-disable-ipv6.conf                 # Disable IPv6
+      - echo "fs.inotify.max_user_instances=1024" >> /etc/sysctl.conf
+      - sysctl -p                                                    # Apply sysctl
       - modprobe iscsi_tcp                                           # Initialize iSCSI for Longhorn
