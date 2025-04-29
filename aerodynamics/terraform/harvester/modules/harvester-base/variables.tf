@@ -25,6 +25,7 @@ variable "cloudinit_templates" {
     description = "List of CloudInit templates to be imported in the Harvester cluster"
     type        = list(string)
     default     = [
-        "cloudinit-k3s.yaml"
+        "cloudinit-k3s.yaml",
+        "cloudinit-opensuse-full-node.yaml"
     ]
 }
