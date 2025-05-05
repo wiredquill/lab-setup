@@ -1,10 +1,10 @@
-variable "kubeconfig_path" {
+variable "harvester_kubeconfig_path" {
     description = "Path to the Harvester KubeConfig config file"
     type        = string
     default     = ""
 }
 
-variable "kubeconfig_context" {
+variable "harvester_kubeconfig_context" {
     description = "KubeConfig context to use"
     type        = string
     default     = ""
@@ -35,4 +35,19 @@ variable "cloudflare_api_token" {
 variable "letsencrypt_email" {
   type = string
   default = ""
+}
+
+variable "vmimages" {
+    description = "List of images to be imported in the Harvester cluster"
+    type        = map(string)
+    default     = {
+        "opensuse-leap-15.6-nc" = "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.6/images/openSUSE-Leap-15.6.x86_64-NoCloud.qcow2"
+        "ubuntu-24.04" = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+    }
+}
+
+variable "rancher_helm_repository" {
+  type        = string
+  description = "The helm repository, where the Rancher helm chart is installed from"
+  default     = "https://releases.rancher.com/server-charts/latest"
 }

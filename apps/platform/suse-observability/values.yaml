@@ -26,6 +26,60 @@ stackstate:
         token: 1234-abcd-5678-efgh
         roles: ["stackstate-k8s-troubleshooter", "stackstate-admin", "stackstate-k8s-admin"]
     adminPassword: "$2a$10$1XyTg9cAAeRlMaCnNmeQ4OSikJhRj6oW1BOSc/A44HGrubQcreS.e" # !nfiniteP0wer
+    roles:
+      custom:
+        stackstate-admin:
+          systemPermissions:
+            - access-analytics
+            - access-cli
+            - access-explore
+            - access-log-data
+            - access-synchronization-data
+            - access-topic-data
+            - create-views
+            - execute-component-actions
+            - execute-component-templates
+            - execute-node-sync
+            - execute-restricted-scripts
+            - execute-scripts
+            - export-settings
+            - import-settings
+            - manage-annotations
+            - manage-ingestion-api-keys
+            - manage-metric-bindings
+            - manage-monitors
+            - manage-notifications
+            - manage-service-tokens
+            - manage-stackpacks
+            - manage-star-view
+            - manage-telemetry-streams
+            - manage-topology-elements
+            - perform-custom-query
+            - read-metrics
+            - read-permissions
+            - read-settings
+            - read-stackpacks
+            - read-telemetry-streams
+            - read-traces
+            - run-monitors
+            - update-permissions
+            - update-settings
+            - update-visualization
+            - upload-stackpacks
+            - view-metric-bindings
+            - view-monitors
+            - view-notifications
+            - read-agents
+            - read-system-notification
+            - create-dashboards
+            - view-dashboards
+            - update-dashboards
+            - delete-dashboards
+            - create-favorite-dashboards
+            - delete-favorite-dashboards
+            - unlock-node
+          viewPermissions: [access-view, save-view, delete-view]
+
   apiKey:
     key: "beTRIDqKh6xvXpCw6wkxIt9bvoyLwJGU"
 
@@ -49,11 +103,11 @@ stackstate:
     receiver:
       extraEnv:
         open:
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxConnectionObservationsPerHost: "150000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxComponentsPerHost: "10000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxRelationsPerHost: "10000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewRelationsHourlyPerHost: "10000"
-          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewComponentsHourlyPerHost: "10000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxConnectionObservationsPerHost: "15000000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxComponentsPerHost: "1000000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxRelationsPerHost: "1000000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewRelationsHourlyPerHost: "1000000"
+          CONFIG_FORCE_stackstate_receiver_processAgent_maxNewComponentsHourlyPerHost: "1000000"
       retention: 1
     state:
       config: |

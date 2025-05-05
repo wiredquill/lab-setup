@@ -48,7 +48,7 @@ resource "kubernetes_secret" "cloudflare-api-token" {
 }
 
 resource "kubectl_manifest" "letsencrypt-prod" {
-  depends_on = [ helm_release.cert_manager ]
+  depends_on = [ helm_release.cert_manager, kubernetes_secret.cloudflare-api-token ]
   yaml_body = <<EOF
     apiVersion: cert-manager.io/v1
     kind: ClusterIssuer
@@ -75,6 +75,8 @@ resource "helm_release" "rancher_server" {
   depends_on = [
     helm_release.cert_manager,
     helm_release.ingress-nginx,
+    kubectl_manifest.letsencrypt-prod,
+    kubernetes_secret.cloudflare-api-token
   ]
 
   name             = "rancher"
@@ -124,4 +126,15 @@ resource "helm_release" "rancher_server" {
     name  = "bootstrapPassword"
     value = "admin" # TODO: change this once the terraform provider has been updated with the new pw bootstrap logic
   }
+
+  values = [jsonencode(
+    {
+        "extraEnv" = [
+            {
+                "name"  = "CATTLE_SERVER_VERSION"
+                "value" = "2.11-gartner-head"
+            }
+        ]
+    }
+)]
 }

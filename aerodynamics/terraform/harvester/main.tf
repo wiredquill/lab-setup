@@ -1,6 +1,17 @@
-module "base" {
-    source = "./modules/base"
+module "harvester-base" {
+    source = "./modules/harvester-base"
     domain_suffix = var.domain_suffix
+    vmimages = var.vmimages
+}
+
+resource "harvester_cloudinit_secret" "control-tower-cloudinit" {
+  name = "control-tower-cloudinit"
+  namespace = "default"
+
+  user_data = templatefile("${path.module}/cloudinit/control-tower.yaml", {
+    "domain_suffix" = var.domain_suffix
+  })
+  network_data = ""
 }
 
 resource "harvester_virtualmachine" "control-tower" {
@@ -18,7 +29,7 @@ resource "harvester_virtualmachine" "control-tower" {
         bus = "virtio"
         type = "disk"
         size = "100Gi"
-        image = module.base.opensuse-image
+        image = module.harvester-base.vmimages["opensuse-leap-15.6-nc"].id
         boot_order = 1
         auto_delete = true
     }
@@ -36,9 +47,8 @@ resource "harvester_virtualmachine" "control-tower" {
     }
 
     cloudinit {
-        user_data = templatefile("${path.module}/cloudinit/control-tower.yaml", {
-            "domain_suffix" = var.domain_suffix
-        })
+        user_data_secret_name = harvester_cloudinit_secret.control-tower-cloudinit.name
+        network_data_secret_name = harvester_cloudinit_secret.control-tower-cloudinit.name
     }
 }
 
@@ -61,4 +71,5 @@ module "rancher-deploy" {
   kubeconfig = local_file.control-tower_kubeconfig.filename
   admin_password = "!nfiniteP0wer"
   rancher_server_dns = "rancher.control-tower.${var.domain_suffix}"
+  rancher_helm_repository = var.rancher_helm_repository
 }
