@@ -1,26 +1,26 @@
 gitea:
   username: "susecon"
   password: "!nfiniteP0wer"
-  url: gitea.rigel.lab.geeko.me
+  url: gitea.hangar-bay.lab.geeko.me
 
 rancher:
-  url: "rancher.sirius.lab.geeko.me"
+  url: "rancher.control-tower.lab.geeko.me"
   username: "admin"
   password: "!nfiniteP0wer"
 
 registry:
-  url: "registry.rigel.lab.geeko.me"
+  url: "registry.hangar-bay.lab.geeko.me"
   username: "admin"
   password: "admin"
 
 observability:
-  url: "observability.orion.lab.geeko.me"
+  url: "observability-lab.geeko.me"
   serviceToken: 1234-abcd-5678-efgh
 
 gitrepo:
   organization: suse
   name: "demoapp"
   originalUrl: "https://github.com/hierynomus/nodejs-demoapp.git"
-  targetCluster: "pollux"
+  targetCluster: "hangar-bay"
   targetContainerRepo: "demoapp"
 

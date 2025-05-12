@@ -10,7 +10,7 @@ helm:
         key: cloudflare-values.yaml
   values:
     cloudflare:
-      tunnelName: lab-tunnel
+      tunnelName: ${ .ClusterName }-tunnel
 labels:
   app: cloudflare-tunnel-ingress-controller
 overrideTargets:

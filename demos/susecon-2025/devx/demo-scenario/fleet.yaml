@@ -8,4 +8,4 @@ helm:
 overrideTargets:
   - clusterSelector:
       matchLabels:
-        demo: "susecon-devx"
+        demo: "susecon-devx-no"
